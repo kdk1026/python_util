@@ -1,0 +1,11 @@
+[build-system]
+requires = ["setuptools", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "utils"
+version = "0.1.0"
+description = "내 개인 유틸 도구 모음"
+
+[tool.setuptools.packages.find]
+where = ["src"]
