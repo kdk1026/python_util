@@ -3,3 +3,6 @@ class EncryptResult:
         self.cipher_text = encrypted_text
         self.iv = iv
         self.tag = tag
+
+    def __str__(self):
+        return str(self.__dict__)
