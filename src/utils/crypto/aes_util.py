@@ -11,7 +11,7 @@ class AesUtil:
     is_null_or_empty = "{} is null or empty"
 
     class Algorithm:
-        # 과거 권장, 비권장
+        # 과거 권장, 현재 비권장
         AES_CBC_PKCS5PADDING = "AES/CBC/PKCS5Padding"
 
         # 강력 권장
