@@ -136,6 +136,25 @@ class AesUtil:
         cipher_text: str,
         tag: bytes | None,
     ) -> str:
+        """AES 복호화
+
+        Args:
+            algorithm (str): _description_
+            base64_key_string (str): _description_
+            iv_str (str): _description_
+            is_base6_iv (bool): _description_
+            cipher_text (str): _description_
+            tag (bytes | None): _description_
+
+        Raises:
+            ValueError: _description_
+            ValueError: _description_
+            ValueError: _description_
+            ValueError: _description_
+
+        Returns:
+            str: _description_
+        """
         if not algorithm or not algorithm.strip():
             raise ValueError(AesUtil.is_null_or_empty.format("algorithm"))
 
