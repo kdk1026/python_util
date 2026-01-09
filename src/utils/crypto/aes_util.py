@@ -196,10 +196,7 @@ class AesUtil:
         Returns:
             EncryptResult: _description_
         """
-        if (
-            not encrypt_result.cipher_text
-            or not encrypt_result.cipher_text.strip()
-        ):
+        if not encrypt_result.cipher_text or not encrypt_result.cipher_text.strip():
             raise ValueError(
                 AesUtil.is_null_or_empty.format("encrypt_result.cipher_text")
             )
