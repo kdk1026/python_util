@@ -73,14 +73,13 @@ class AesUtil:
 
     @staticmethod
     def encrypt(
-        algorithm: str, base64_key_string: str, iv_str: str | None, plain_text: str
+        algorithm: str, base64_key_string: str, plain_text: str
     ) -> EncryptResult:
         """AES 암호화
 
         Args:
             algorithm (str): _description_
             base64_key_string (str): _description_
-            iv_str (str | None): _description_
             plain_text (str): _description_
 
         Raises:
@@ -103,20 +102,14 @@ class AesUtil:
         key = AesUtil.convert_string_to_key(base64_key_string)
 
         if "CBC" in algorithm:
-            if iv_str is None:
-                iv = get_random_bytes(AES.block_size)
-            elif isinstance(iv_str, str):
-                iv = iv_str.encode("utf-8").ljust(16)[:16]
+            iv = get_random_bytes(AES.block_size)
 
             cipher = AES.new(key, AES.MODE_CBC, iv)
             padded_data = pad(plain_text.encode("utf-8"), AES.block_size)
 
             cipher_text = cipher.encrypt(padded_data)
         elif "GCM" in algorithm:
-            if iv_str is None:
-                iv = get_random_bytes(12)
-            elif isinstance(iv_str, str):
-                iv = iv_str.encode("utf-8").ljust(12)[:12]
+            iv = get_random_bytes(12)
 
             cipher = AES.new(key, AES.MODE_GCM, nonce=iv)
 
@@ -131,8 +124,7 @@ class AesUtil:
     def decrypt(
         algorithm: str,
         base64_key_string: str,
-        iv_str: str,
-        is_base6_iv: bool,
+        base64_iv_string: str,
         cipher_text: str,
         tag: bytes | None,
     ) -> str:
@@ -141,8 +133,7 @@ class AesUtil:
         Args:
             algorithm (str): _description_
             base64_key_string (str): _description_
-            iv_str (str): _description_
-            is_base6_iv (bool): _description_
+            base64_iv_string (str): _description_
             cipher_text (str): _description_
             tag (bytes | None): _description_
 
@@ -161,20 +152,16 @@ class AesUtil:
         if not base64_key_string or not base64_key_string.strip():
             raise ValueError(AesUtil.is_null_or_empty.format("base64_key_string"))
 
-        if not iv_str or not iv_str.strip():
-            raise ValueError(AesUtil.is_null_or_empty.format("iv_str"))
+        if not base64_iv_string or not base64_iv_string.strip():
+            raise ValueError(AesUtil.is_null_or_empty.format("base64_iv_string"))
 
         if not cipher_text or not cipher_text.strip():
             raise ValueError(AesUtil.is_null_or_empty.format("cipher_text"))
 
         key = AesUtil.convert_string_to_key(base64_key_string)
+        iv = base64.b64decode(base64_iv_string)
 
         if "CBC" in algorithm:
-            if is_base6_iv:
-                iv = base64.b64decode(iv_str)
-            else:
-                iv = iv_str.encode("utf-8").ljust(16)[:16]
-
             cipher = AES.new(key, AES.MODE_CBC, iv)
             decrypted_padded = cipher.decrypt(cipher_text)
 
@@ -184,11 +171,6 @@ class AesUtil:
                 return "복호화 실패: 키나 IV가 올바르지 않거나 데이터가 훼손되었습니다."
 
         elif "GCM" in algorithm:
-            if is_base6_iv:
-                iv = base64.b64decode(iv_str)
-            else:
-                iv = iv_str.encode("utf-8").ljust(12)[:12]
-
             cipher = AES.new(key, AES.MODE_GCM, nonce=iv)
 
             try:
@@ -215,11 +197,11 @@ class AesUtil:
             EncryptResult: _description_
         """
         if (
-            not encrypt_result.encrypted_text
-            or not encrypt_result.encrypted_text.strip()
+            not encrypt_result.cipher_text
+            or not encrypt_result.cipher_text.strip()
         ):
             raise ValueError(
-                AesUtil.is_null_or_empty.format("encrypt_result.encrypted_text")
+                AesUtil.is_null_or_empty.format("encrypt_result.cipher_text")
             )
 
         if not encrypt_result.iv or not encrypt_result.iv.strip():
@@ -228,7 +210,7 @@ class AesUtil:
         if not encrypt_result.tag:
             raise ValueError(AesUtil.is_null.format("encrypt_result.tag"))
 
-        combined_data = encrypt_result.encrypted_text + encrypt_result.tag
+        combined_data = encrypt_result.cipher_text + encrypt_result.tag
         encoded_result = base64.b64encode(combined_data).decode("utf-8")
 
         return EncryptResult(encoded_result, encrypt_result.iv, None)
@@ -236,8 +218,7 @@ class AesUtil:
     @staticmethod
     def decrypt_aes_gcm_java_style(
         base64_key_string: str,
-        iv_str: str,
-        is_base6_iv: bool,
+        base64_iv_string: str,
         encoded_combined: str,
     ) -> str:
         """encrypt_result_aes_gcm_java_style 결과를 복호화
@@ -245,7 +226,6 @@ class AesUtil:
         Args:
             base64_key_string (str): _description_
             iv_str (str): _description_
-            is_base6_iv (bool): _description_
             encoded_combined (str): _description_
 
         Raises:
@@ -259,18 +239,14 @@ class AesUtil:
         if not base64_key_string or not base64_key_string.strip():
             raise ValueError(AesUtil.is_null_or_empty.format("base64_key_string"))
 
-        if not iv_str or not iv_str.strip():
-            raise ValueError(AesUtil.is_null_or_empty.format("iv_str"))
+        if not base64_iv_string or not base64_iv_string.strip():
+            raise ValueError(AesUtil.is_null_or_empty.format("base64_iv_string"))
 
         if not encoded_combined or not encoded_combined.strip():
             raise ValueError(AesUtil.is_null_or_empty.format("encoded_combined"))
 
         key = AesUtil.convert_string_to_key(base64_key_string)
-
-        if is_base6_iv:
-            iv = base64.b64decode(iv_str)
-        else:
-            iv = iv_str.encode("utf-8").ljust(12)[:12]
+        iv = base64.b64decode(base64_iv_string)
 
         combined_data = base64.b64decode(encoded_combined)
 
