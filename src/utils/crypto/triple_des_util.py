@@ -69,18 +69,15 @@ class TripleDesUtil:
         return base64.b64decode(base64_key_string)
 
     @staticmethod
-    def encrypt(
-        base64_key_string: str, iv_str: str | None, plain_text: str
-    ) -> EncryptResult:
+    def encrypt(base64_key_string: str, iv_str: str, plain_text: str) -> EncryptResult:
         """Triple DES 암호화
 
         Args:
             base64_key_string (str): _description_
-            iv_str (str | None): _description_
+            iv_str (str): _description_
             plain_text (str): _description_
 
         Raises:
-            ValueError: _description_
             ValueError: _description_
             ValueError: _description_
 
