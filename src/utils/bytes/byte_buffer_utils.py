@@ -10,7 +10,7 @@ class ByteBufferUtils:
     is_negative = "{} is negative"
 
     @staticmethod
-    def to_byte_buffer_from_str(s: str, encoding: str = "utf-8") -> memoryview:
+    def to_byte_buffer_str(s: str, encoding: str = "utf-8") -> memoryview:
         if not s or not s.strip():
             raise ValueError(ByteBufferUtils.is_null_or_empty.format("s"))
 
@@ -25,7 +25,7 @@ class ByteBufferUtils:
             logger.error(f"지원되지 않는 인코딩입니다: {encoding}")
 
     @staticmethod
-    def to_byte_buffer_from_str_list(
+    def to_byte_buffer_str_list(
         str_list: List[str], encoding: str = "utf-8"
     ) -> Optional[bytearray]:
         if not str_list:
