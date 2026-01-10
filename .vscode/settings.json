@@ -2,6 +2,7 @@
   "cSpell.words": [
     "decryptor",
     "encryptor",
+    "OAEP",
     "padder",
     "PKCS",
     "tobytes",
