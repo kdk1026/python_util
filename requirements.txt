@@ -1,7 +1,10 @@
+cffi==2.0.0
+cryptography==46.0.3
 librt==0.7.7
 mypy==1.19.1
 mypy_extensions==1.1.0
 pathspec==1.0.2
+pycparser==2.23
 pycryptodome==3.23.0
 typing_extensions==4.15.0
--e git+https://github.com/kdk1026/python_util.git@c68231b1bbbf482d867f521a5a2083d7d7a04fe0#egg=utils
+-e git+https://github.com/kdk1026/python_util.git@8fa164f9cc16fb3493020e80688a5e9fbc1f3fe1#egg=utils

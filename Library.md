@@ -5,3 +5,6 @@
 
 2. pycryptodome
     - AES, DES, RSA 등 암호화
+
+3. cryptography
+    - SEED 등 암호화

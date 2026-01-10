@@ -1,5 +1,13 @@
 {
-  "cSpell.words": ["tobytes"],
+  "cSpell.words": [
+    "decryptor",
+    "encryptor",
+    "padder",
+    "PKCS",
+    "tobytes",
+    "unpadder",
+    "urandom"
+  ],
   "editor.defaultFormatter": "ms-python.black-formatter",
   "editor.formatOnSave": true,
   "black-formatter.args": ["--line-length", "88"]
