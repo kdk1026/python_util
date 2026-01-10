@@ -48,7 +48,7 @@ class AesUtil:
         Returns:
             str: _description_
         """
-        if not key or not key.strip():
+        if not key:
             raise ValueError(AesUtil.is_null_or_empty.format("key"))
 
         return base64.b64encode(key).decode("utf-8")

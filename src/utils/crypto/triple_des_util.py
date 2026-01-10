@@ -45,7 +45,7 @@ class TripleDesUtil:
         Returns:
             str: _description_
         """
-        if not key or not key.strip():
+        if not key:
             raise ValueError(TripleDesUtil.is_null_or_empty.format("key"))
 
         return base64.b64encode(key).decode("utf-8")
