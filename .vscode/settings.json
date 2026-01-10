@@ -1,14 +1,17 @@
 {
   "cSpell.words": [
     "checkpw",
+    "dateutil",
     "decryptor",
     "encryptor",
     "gensalt",
     "hashpw",
+    "millis",
     "OAEP",
     "padder",
     "PKCS",
     "publickey",
+    "relativedelta",
     "tobytes",
     "unpadder",
     "urandom"
