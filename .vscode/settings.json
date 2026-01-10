@@ -1,7 +1,10 @@
 {
   "cSpell.words": [
+    "checkpw",
     "decryptor",
     "encryptor",
+    "gensalt",
+    "hashpw",
     "OAEP",
     "padder",
     "PKCS",
