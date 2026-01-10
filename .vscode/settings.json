@@ -8,6 +8,7 @@
     "OAEP",
     "padder",
     "PKCS",
+    "publickey",
     "tobytes",
     "unpadder",
     "urandom"
