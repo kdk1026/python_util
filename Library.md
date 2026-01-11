@@ -17,3 +17,11 @@
 
 6. babel
     - 로케일 변경
+
+7. python-magic
+    - 파일의 실제 데이터(바이트)를 읽어서 MIME Type 구하기
+    - (Windows) python-magic-bin
+    - (Linux) python-magic
+
+8. Pillow
+    - 파일이 손상되었거나 이미지 형식이 아니면 UnidentifiedImageError를 발생
