@@ -199,7 +199,7 @@ class IniUtil:
 
         config.read(file_path, encoding="utf-8")
 
-        if not config.options(section):
+        if config.options(section):
             config.remove_section(section)
 
             with open(file_path, "w", encoding="utf-8") as f:
@@ -232,7 +232,7 @@ class IniUtil:
 
         config.read(file_path, encoding="utf-8")
 
-        if not config[section][key]:
+        if config[section][key]:
             config.remove_option(section, key)
 
             with open(file_path, "w", encoding="utf-8") as f:
