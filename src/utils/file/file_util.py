@@ -6,7 +6,7 @@ import shutil
 logger = logging.getLogger(__name__)
 
 
-class CommonFileUtil:
+class FileUtil:
     is_null_or_empty = "{} is null or empty"
     is_negative = "{} is negative"
 
