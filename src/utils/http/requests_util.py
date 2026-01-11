@@ -10,6 +10,8 @@ class RequestsUtil:
 
     response = requests.post(url, json=payload)
         : json 파라미터를 사용하면 자동으로 Content-Type: application/json 설정
+        : data 파라미터를 사용하면 자동으로 Content-Type: application/x-www-form-urlencoded 설정
+        : file 파라미터를 사용하면 자동으로Content-Type: multipart/form-data 설정
         : 그 외에는 헤더에 직접 설정
     """
 
@@ -51,16 +53,19 @@ class RequestsUtil:
         url: str = "",
         header_map: dict = {},
         body_map: dict = {},
-        is_json: bool = True,
+        is_type: int = 1 | 2 | 3,
     ) -> dict | None:
         """HttpClient POST 요청
+        - is_type = 1 (json)
+        - is_type = 2 (data = form)
+        - is_type = 3 (file)
 
         Args:
             is_ssl (bool): _description_
             url (str, optional): _description_. Defaults to "".
             header_map (dict, optional): _description_. Defaults to {}.
             body_map (dict, optional): _description_. Defaults to {}.
-            is_json (bool, optional): _description_. Defaults to True.
+            is_type (int, optional): _description_. Defaults to 1 | 2 | 3.
 
         Raises:
             ValueError: _description_
@@ -71,19 +76,26 @@ class RequestsUtil:
         if not url or not url.strip():
             raise ValueError(cls.is_null_or_empty.format("url"))
 
-        if is_json:
+        if is_type == 1:
             response = requests.post(
                 url,
                 headers=header_map,
                 verify=True if is_ssl == False else False,
                 json=body_map,
             )
-        else:
+        elif is_type == 2:
             response = requests.post(
                 url,
                 headers=header_map,
                 verify=True if is_ssl == False else False,
                 data=body_map,
+            )
+        elif is_type == 3:
+            response = requests.post(
+                url,
+                headers=header_map,
+                verify=True if is_ssl == False else False,
+                file=body_map,
             )
 
         if response.ok:
