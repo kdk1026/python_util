@@ -11,7 +11,7 @@ class RequestsUtil:
     response = requests.post(url, json=payload)
         : json 파라미터를 사용하면 자동으로 Content-Type: application/json 설정
         : data 파라미터를 사용하면 자동으로 Content-Type: application/x-www-form-urlencoded 설정
-        : file 파라미터를 사용하면 자동으로Content-Type: multipart/form-data 설정
+        : file 파라미터를 사용하면 자동으로 Content-Type: multipart/form-data 설정
         : 그 외에는 헤더에 직접 설정
     """
 
