@@ -25,3 +25,6 @@
 
 8. Pillow
     - 파일이 손상되었거나 이미지 형식이 아니면 UnidentifiedImageError를 발생
+
+9. requests
+    - HttpClient
