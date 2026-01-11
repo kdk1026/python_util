@@ -19,13 +19,13 @@ class RequestsUtil:
     is_null_or_empty = "{} is null or empty"
 
     @classmethod
-    def get(cls, is_ssl: bool, url: str = "", header_map: dict = {}) -> dict | None:
+    def get(cls, is_ssl: bool, url: str = "", header_map: dict = None) -> dict | None:
         """HttpClient GET 요청
 
         Args:
             is_ssl (bool): _description_
             url (str, optional): _description_. Defaults to "".
-            header_map (dict, optional): _description_. Defaults to {}.
+            header_map (dict, optional): _description_. Defaults to None.
 
         Raises:
             ValueError: _description_
@@ -36,14 +36,28 @@ class RequestsUtil:
         if not url or not url.strip():
             raise ValueError(cls.is_null_or_empty.format("url"))
 
-        response = requests.get(
-            url, headers=header_map, verify=True if is_ssl == False else False
-        )
+        header_map = header_map or {}
 
-        if response.ok:
-            return response.json()
-        else:
-            logger.warning(f"Status Code: {response.status_code}")
+        if is_ssl:
+            import urllib3
+
+            urllib3.disable_warnings(urllib3.exceptions.InsecureRequestWarning)
+
+        try:
+            response = requests.get(
+                url, headers=header_map, verify=True if is_ssl == False else False
+            )
+
+            if response.ok:
+                try:
+                    return response.json()
+                except ValueError:
+                    return {"text": response.text}
+            else:
+                logger.warning(f"Status Code: {response.status_code}")
+                return None
+        except requests.exceptions.RequestException as e:
+            logger.error(f"HTTP Request Error: {e}")
             return None
 
     @classmethod
@@ -51,9 +65,9 @@ class RequestsUtil:
         cls,
         is_ssl: bool,
         url: str = "",
-        header_map: dict = {},
-        body_map: dict = {},
-        is_type: int = 1 | 2 | 3,
+        header_map: dict = None,
+        body_map: dict = None,
+        is_type: int = 1,
     ) -> dict | None:
         """HttpClient POST 요청
         - is_type = 1 (json)
@@ -63,11 +77,12 @@ class RequestsUtil:
         Args:
             is_ssl (bool): _description_
             url (str, optional): _description_. Defaults to "".
-            header_map (dict, optional): _description_. Defaults to {}.
-            body_map (dict, optional): _description_. Defaults to {}.
-            is_type (int, optional): _description_. Defaults to 1 | 2 | 3.
+            header_map (dict, optional): _description_. Defaults to None.
+            body_map (dict, optional): _description_. Defaults to None.
+            is_type (int, optional): _description_. Defaults to 1.
 
         Raises:
+            ValueError: _description_
             ValueError: _description_
 
         Returns:
@@ -76,30 +91,36 @@ class RequestsUtil:
         if not url or not url.strip():
             raise ValueError(cls.is_null_or_empty.format("url"))
 
-        if is_type == 1:
+        header_map = header_map or {}
+        body_map = body_map or {}
+
+        type_mapping = {1: "json", 2: "data", 3: "files"}
+        param_name = type_mapping.get(is_type)
+
+        if not param_name:
+            raise ValueError(f"Invalid is_type: {is_type}. Choose 1, 2, or 3.")
+
+        if is_ssl:
+            import urllib3
+
+            urllib3.disable_warnings(urllib3.exceptions.InsecureRequestWarning)
+
+        try:
             response = requests.post(
                 url,
                 headers=header_map,
                 verify=True if is_ssl == False else False,
-                json=body_map,
-            )
-        elif is_type == 2:
-            response = requests.post(
-                url,
-                headers=header_map,
-                verify=True if is_ssl == False else False,
-                data=body_map,
-            )
-        elif is_type == 3:
-            response = requests.post(
-                url,
-                headers=header_map,
-                verify=True if is_ssl == False else False,
-                file=body_map,
+                **{param_name: body_map},
             )
 
-        if response.ok:
-            return response.json()
-        else:
-            logger.warning(f"Status Code: {response.status_code}")
+            if response.ok:
+                try:
+                    return response.json()
+                except ValueError:
+                    return {"text": response.text}
+            else:
+                logger.warning(f"Status Code: {response.status_code}")
+                return None
+        except requests.exceptions.RequestException as e:
+            logger.error(f"HTTP Request Error: {e}")
             return None
