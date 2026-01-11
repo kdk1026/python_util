@@ -3,6 +3,7 @@
     "checkpw",
     "dateutil",
     "decryptor",
+    "encodig",
     "encryptor",
     "gensalt",
     "hashpw",
