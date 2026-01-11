@@ -8,9 +8,6 @@ logger = logging.getLogger(__name__)
 
 
 class CommonFileUtil:
-    FOLDER_SEPARATOR = "/"
-    EXTENSION_SEPARATOR = "."
-
     is_null_or_empty = "{} is null or empty"
     is_negative = "{} is negative"
 
