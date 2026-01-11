@@ -199,10 +199,11 @@ class IniUtil:
 
         config.read(file_path, encoding="utf-8")
 
-        config.remove_section(section)
+        if not config.options(section):
+            config.remove_section(section)
 
-        with open(file_path, "w", encoding="utf-8") as f:
-            config.write(f)
+            with open(file_path, "w", encoding="utf-8") as f:
+                config.write(f)
 
     @classmethod
     def clear_ini_key(cls, file_path: str, section: str, key: str) -> None:
@@ -231,7 +232,8 @@ class IniUtil:
 
         config.read(file_path, encoding="utf-8")
 
-        config.remove_option(section, key)
+        if not config[section][key]:
+            config.remove_option(section, key)
 
-        with open(file_path, "w", encoding="utf-8") as f:
-            config.write(f)
+            with open(file_path, "w", encoding="utf-8") as f:
+                config.write(f)
