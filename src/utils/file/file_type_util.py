@@ -51,6 +51,7 @@ class FileTypeUtil:
         """파일 MIME Type 구하기
         - python-magic 사용
         - 정확성 높음
+        - 실제 데이터(바이트)를 읽어서 분석
 
         Args:
             file_path (str): _description_
