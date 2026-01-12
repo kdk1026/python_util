@@ -1,12 +1,14 @@
 {
   "cSpell.words": [
     "checkpw",
+    "Chrono",
     "dateutil",
     "decryptor",
     "encodig",
     "encryptor",
     "gensalt",
     "hashpw",
+    "insur",
     "millis",
     "OAEP",
     "padder",
