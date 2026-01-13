@@ -1,4 +1,5 @@
 from email.message import EmailMessage
+from email.mime.multipart import MIMEMultipart
 import logging
 from pathlib import Path
 import smtplib
@@ -28,6 +29,9 @@ class MailSenderUtil:
             - host
             - port
 
+        - text = MIMEText("테스트에요", "plain")
+        - html = MIMEText("<h2>테스트에요</h2>", "html")
+
         Args:
             config_file_path (str): _description_
             section (str): _description_
@@ -52,7 +56,7 @@ class MailSenderUtil:
         if not subject or not subject.strip():
             raise ValueError(cls.__is_null_or_empty.format("subject"))
 
-        if not body or not body.strip():
+        if not body:
             raise ValueError(cls.__is_null_or_empty.format("body"))
 
         if not to_emails or len(to_emails) < 1:
@@ -65,11 +69,12 @@ class MailSenderUtil:
                 smtp.login(config_dict.get("username"), config_dict.get("password"))
 
                 for to_email in to_emails:
-                    msg = EmailMessage()
+                    msg = MIMEMultipart("alternative")
                     msg["Subject"] = subject
                     msg["From"] = config_dict.get("username")
                     msg["To"] = to_email
-                    msg.set_content(body)
+
+                    msg.attach(body)
 
                     if attachment_path:
                         file_path = Path(attachment_path)
