@@ -22,15 +22,16 @@ class MailSenderUtil:
         to_emails: list,
         attachment_path: str | None = None,
     ) -> bool:
-        """메일 발송
+        r"""메일 발송
         - config 내용
             - username
             - password
             - host
             - port
 
-        - text = MIMEText("테스트에요", "plain")
-        - html = MIMEText("<h2>테스트에요</h2>", "html")
+        - body
+            - text = `MIMEText("테스트에요", "plain")`
+            - html = `MIMEText("<h2>테스트에요</h2>", "html")`
 
         Args:
             config_file_path (str): _description_
