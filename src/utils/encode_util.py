@@ -6,6 +6,11 @@ logger = logging.getLogger(__name__)
 
 
 class EncodeUtil:
+    """
+    - Base64 인코딩/디코딩
+    - URL 인코딩/디코딩
+    """
+
     __is_null_or_empty = "{} is null or empty"
 
     @classmethod
