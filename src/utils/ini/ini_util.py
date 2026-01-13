@@ -6,6 +6,7 @@ logger = logging.getLogger(__name__)
 
 class IniUtil:
     is_null_or_empty = "{} is null or empty"
+    is_not_read_file = "파일을 찾을 수 없거나 읽지 못했습니다."
 
     @classmethod
     def get_ini(cls, file_path: str, section: str, key: str) -> str | None:
@@ -39,13 +40,13 @@ class IniUtil:
         read_files = config.read(file_path, encoding="utf-8")
 
         if not read_files:
-            logger.error("파일을 찾을 수 없거나 읽지 못했습니다.")
+            logger.error(cls.is_not_read_file)
             return None
 
         return config[section][key]
 
     @classmethod
-    def get_ini_section(cls, file_path: str, section: str) -> list | None:
+    def get_ini_section(cls, file_path: str, section: str) -> dict | None:
         """ini 파일 읽기
 
         Args:
@@ -70,10 +71,10 @@ class IniUtil:
         read_files = config.read(file_path, encoding="utf-8")
 
         if not read_files:
-            logger.error("파일을 찾을 수 없거나 읽지 못했습니다.")
+            logger.error(cls.is_not_read_file)
             return None
 
-        return config.options(section)
+        return dict(config.items(section))
 
     @classmethod
     def get_ini_key(cls, file_path: str, key: str) -> str:
@@ -141,7 +142,7 @@ class IniUtil:
         read_files = config.read(file_path, encoding="utf-8")
 
         if not read_files:
-            logger.error("파일을 찾을 수 없거나 읽지 못했습니다.")
+            logger.error(cls.is_not_read_file)
             return None
 
         if not config.has_section(section):
@@ -185,7 +186,7 @@ class IniUtil:
         read_files = config.read(file_path, encoding="utf-8")
 
         if not read_files:
-            logger.error("파일을 찾을 수 없거나 읽지 못했습니다.")
+            logger.error(cls.is_not_read_file)
             return None
 
         config.set(section, key, value)
@@ -216,7 +217,7 @@ class IniUtil:
         read_files = config.read(file_path, encoding="utf-8")
 
         if not read_files:
-            logger.error("파일을 찾을 수 없거나 읽지 못했습니다.")
+            logger.error(cls.is_not_read_file)
             return None
 
         if config.options(section):
@@ -253,7 +254,7 @@ class IniUtil:
         read_files = config.read(file_path, encoding="utf-8")
 
         if not read_files:
-            logger.error("파일을 찾을 수 없거나 읽지 못했습니다.")
+            logger.error(cls.is_not_read_file)
             return None
 
         if config[section][key]:
