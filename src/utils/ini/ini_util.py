@@ -8,7 +8,7 @@ class IniUtil:
     is_null_or_empty = "{} is null or empty"
 
     @classmethod
-    def get_ini(cls, file_path: str, section: str, key: str) -> str:
+    def get_ini(cls, file_path: str, section: str, key: str) -> str | None:
         """ini 파일 읽기
 
         Args:
@@ -36,12 +36,16 @@ class IniUtil:
 
         config = configparser.ConfigParser()
 
-        config.read(file_path, encoding="utf-8")
+        read_files = config.read(file_path, encoding="utf-8")
+
+        if not read_files:
+            logger.error("파일을 찾을 수 없거나 읽지 못했습니다.")
+            return None
 
         return config[section][key]
 
     @classmethod
-    def get_ini_section(cls, file_path: str, section: str) -> list:
+    def get_ini_section(cls, file_path: str, section: str) -> list | None:
         """ini 파일 읽기
 
         Args:
@@ -63,7 +67,11 @@ class IniUtil:
 
         config = configparser.ConfigParser()
 
-        config.read(file_path, encoding="utf-8")
+        read_files = config.read(file_path, encoding="utf-8")
+
+        if not read_files:
+            logger.error("파일을 찾을 수 없거나 읽지 못했습니다.")
+            return None
 
         return config.options(section)
 
@@ -130,7 +138,11 @@ class IniUtil:
 
         config = configparser.ConfigParser()
 
-        config.read(file_path, encoding="utf-8")
+        read_files = config.read(file_path, encoding="utf-8")
+
+        if not read_files:
+            logger.error("파일을 찾을 수 없거나 읽지 못했습니다.")
+            return None
 
         if not config.has_section(section):
             config.add_section(section)
@@ -170,7 +182,11 @@ class IniUtil:
 
         config = configparser.ConfigParser()
 
-        config.read(file_path, encoding="utf-8")
+        read_files = config.read(file_path, encoding="utf-8")
+
+        if not read_files:
+            logger.error("파일을 찾을 수 없거나 읽지 못했습니다.")
+            return None
 
         config.set(section, key, value)
 
@@ -197,7 +213,11 @@ class IniUtil:
 
         config = configparser.ConfigParser()
 
-        config.read(file_path, encoding="utf-8")
+        read_files = config.read(file_path, encoding="utf-8")
+
+        if not read_files:
+            logger.error("파일을 찾을 수 없거나 읽지 못했습니다.")
+            return None
 
         if config.options(section):
             config.remove_section(section)
@@ -230,7 +250,11 @@ class IniUtil:
 
         config = configparser.ConfigParser()
 
-        config.read(file_path, encoding="utf-8")
+        read_files = config.read(file_path, encoding="utf-8")
+
+        if not read_files:
+            logger.error("파일을 찾을 수 없거나 읽지 못했습니다.")
+            return None
 
         if config[section][key]:
             config.remove_option(section, key)
