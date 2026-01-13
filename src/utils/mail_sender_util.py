@@ -1,8 +1,10 @@
 from email.message import EmailMessage
 from email.mime.multipart import MIMEMultipart
+from email.mime.text import MIMEText
 import logging
 from pathlib import Path
 import smtplib
+from typing import Literal
 
 from utils.ini.ini_util import IniUtil
 
@@ -20,18 +22,15 @@ class MailSenderUtil:
         subject: str,
         body: str,
         to_emails: list,
+        body_type: Literal["plain", "html"] = "plain",
         attachment_path: str | None = None,
     ) -> bool:
-        r"""메일 발송
+        """메일 발송
         - config 내용
             - username
             - password
             - host
             - port
-
-        - body
-            - text = `MIMEText("테스트에요", "plain")`
-            - html = `MIMEText("<h2>테스트에요</h2>", "html")`
 
         Args:
             config_file_path (str): _description_
@@ -39,6 +38,7 @@ class MailSenderUtil:
             subject (str): _description_
             body (str): _description_
             to_emails (list): _description_
+            body_type (Literal[&quot;plain&quot;, &quot;html&quot;], optional): _description_. Defaults to "plain".
             attachment_path (str | None, optional): _description_. Defaults to None.
 
         Raises:
@@ -47,7 +47,7 @@ class MailSenderUtil:
             ValueError: _description_
 
         Returns:
-            _type_: _description_
+            bool: _description_
         """
         config_dict = IniUtil.get_ini_section(config_file_path, section)
 
@@ -75,7 +75,8 @@ class MailSenderUtil:
                     msg["From"] = config_dict.get("username")
                     msg["To"] = to_email
 
-                    msg.attach(body)
+                    mail_msg = MIMEText(body, body_type)
+                    msg.attach(mail_msg)
 
                     if attachment_path:
                         file_path = Path(attachment_path)
