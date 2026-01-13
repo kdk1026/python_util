@@ -9,6 +9,7 @@
     "gensalt",
     "hashpw",
     "insur",
+    "locdate",
     "millis",
     "OAEP",
     "padder",

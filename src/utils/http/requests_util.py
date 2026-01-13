@@ -36,8 +36,6 @@ class RequestsUtil:
         if not url or not url.strip():
             raise ValueError(cls.is_null_or_empty.format("url"))
 
-        header_map = header_map or {}
-
         if is_ssl:
             import urllib3
 
@@ -45,17 +43,17 @@ class RequestsUtil:
 
         try:
             response = requests.get(
-                url, headers=header_map, verify=True if is_ssl == False else False
+                url, headers=header_map or {}, verify=True if is_ssl == False else False
             )
 
-            if response.ok:
-                try:
-                    return response.json()
-                except ValueError:
-                    return {"text": response.text}
-            else:
+            if not response.ok:
                 logger.warning(f"Status Code: {response.status_code}")
                 return None
+
+            try:
+                return response.json()
+            except ValueError:
+                return {"text": response.text}
         except requests.exceptions.RequestException as e:
             logger.error(f"HTTP Request Error: {e}")
             return None
@@ -91,9 +89,6 @@ class RequestsUtil:
         if not url or not url.strip():
             raise ValueError(cls.is_null_or_empty.format("url"))
 
-        header_map = header_map or {}
-        body_map = body_map or {}
-
         type_mapping = {1: "json", 2: "data", 3: "files"}
         param_name = type_mapping.get(is_type)
 
@@ -108,19 +103,19 @@ class RequestsUtil:
         try:
             response = requests.post(
                 url,
-                headers=header_map,
+                headers=header_map or {},
                 verify=True if is_ssl == False else False,
-                **{param_name: body_map},
+                **{param_name: body_map or {}},
             )
 
-            if response.ok:
-                try:
-                    return response.json()
-                except ValueError:
-                    return {"text": response.text}
-            else:
+            if not response.ok:
                 logger.warning(f"Status Code: {response.status_code}")
                 return None
+
+            try:
+                return response.json()
+            except ValueError:
+                return {"text": response.text}
         except requests.exceptions.RequestException as e:
             logger.error(f"HTTP Request Error: {e}")
             return None
