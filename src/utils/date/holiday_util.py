@@ -53,6 +53,9 @@ class HolidayUtil:
         }
 
         if month is not None:
+            if month < 1 or month > 12:
+                raise ValueError(f"월은 1~12 사이여야 합니다: {month}")
+
             params["solMonth"] = f"{month:02d}"
 
         try:
