@@ -50,7 +50,9 @@ class EncodeUtil:
             return None
 
     @classmethod
-    def decode_base64(cls, encoded_text: str, charset: str | None = "utf-8"):
+    def decode_base64(
+        cls, encoded_text: str, charset: str | None = "utf-8"
+    ) -> str | None:
         """Base64 디코딩
 
         Args:
@@ -115,7 +117,7 @@ class EncodeUtil:
             return None
 
     @classmethod
-    def url_decode(cls, encoded_text: str, charset: str | None = "utf-8"):
+    def url_decode(cls, encoded_text: str, charset: str | None = "utf-8") -> str | None:
         """URL 디코딩
         - 현대 웹 환경은 UTF-8이 표준
         - 국내 레거시 공공기관 사이트나 특정 윈도우 기반 시스템은 EUC-KR 또는 CP949 사용하는 경우 있음
