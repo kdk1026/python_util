@@ -86,8 +86,8 @@ class MailSenderUtil:
                                 filename=file_name,
                             )
 
-                        smtp.send_message(msg)
-                        return True
+                    smtp.send_message(msg)
+                    return True
         except Exception as e:
             logger.error(f"메일 발송 실패: {e}")
             return False
