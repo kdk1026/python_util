@@ -292,7 +292,12 @@ class ValidUtil:
         @classmethod
         def is_valid_phone_num(cls, s: str) -> bool:
             """전화번호 형식 체크
-            - 휴대폰 번호 / 일반 전화번호 / 070 인터넷 전화(VoIP) / 080 수신자 부담 전화 / 030, 050 평생번호 및 안심번호 / 15xx, 16xx, 18xx 등 전국 대표번호
+            - 휴대폰 번호
+            - 일반 전화번호
+            - 070 인터넷 전화(VoIP)
+            - 080 수신자 부담 전화
+            - 030, 050 평생번호 및 안심번호
+            - 15xx, 16xx, 18xx 등 전국 대표번호
 
             Args:
                 s (str): _description_
