@@ -289,9 +289,10 @@ class ValidUtil:
 
             return bool(re.match(email_regex, s))
 
-        @staticmethod
-        def is_phone_num(s: str) -> bool:
-            """전화번호 형식 체크 (휴대폰 번호 제외)
+        @classmethod
+        def is_valid_phone_num(cls, s: str) -> bool:
+            """전화번호 형식 체크
+            - 휴대폰 번호 / 일반 전화번호 / 070 인터넷 전화(VoIP) / 080 수신자 부담 전화 / 030, 050 평생번호 및 안심번호 / 15xx, 16xx, 18xx 등 전국 대표번호
 
             Args:
                 s (str): _description_
@@ -305,9 +306,121 @@ class ValidUtil:
             if not s or not s.strip():
                 raise ValueError(ValidUtil.is_null_or_empty.format("s"))
 
-            phone_regex = "^(02|03[1-3]|04[1-4]|05[1-5]|06[1-4])-?(\\d{3,4})-?(\\d{4})|^(070|050[2-7])-?(\\d{4})-?(\\d{4})|^(15|16|18)\\d{2}-?(\\d{4})$"
+            return (
+                cls.is_cell_phone_num(s)
+                or cls.is_phone_num(s)
+                or cls.is_internet_phone_num(s)
+                or cls.is_toll_free_phone_num(s)
+                or cls.is_virtual_phone_num(s)
+                or cls.is_business_phone_num(s)
+            )
 
-            return bool(re.match(phone_regex, s))
+        @staticmethod
+        def is_phone_num(s: str) -> bool:
+            """일반 전화번호 형식 체크
+            - 02: 서울
+            - 031: 경기, 032: 인천, 033: 강원
+            - 041: 충남, 042: 대전, 043: 충북, 044: 세종
+            - 051: 부산, 052: 울산, 053: 대구, 054: 경북, 055: 경남
+            - 061: 전남, 062: 광주, 063: 전북, 064: 제주
+
+            Args:
+                s (str): _description_
+
+            Raises:
+                ValueError: _description_
+
+            Returns:
+                bool: _description_
+            """
+            if not s or not s.strip():
+                raise ValueError(ValidUtil.is_null_or_empty.format("s"))
+
+            cell_phone_regex = (
+                "^(02|03[1-3]|04[1-4]|05[1-5]|06[1-4])-?(\\d{3,4})-?(\\d{4})$"
+            )
+
+            return bool(re.match(cell_phone_regex, s))
+
+        @staticmethod
+        def is_internet_phone_num(s: str) -> bool:
+            """070 인터넷 전화(VoIP) 형식 체크
+
+            Args:
+                s (str): _description_
+
+            Raises:
+                ValueError: _description_
+
+            Returns:
+                bool: _description_
+            """
+            if not s or not s.strip():
+                raise ValueError(ValidUtil.is_null_or_empty.format("s"))
+
+            cell_phone_regex = "^070-?(\\d{3,4})-?(\\d{4})$"
+
+            return bool(re.match(cell_phone_regex, s))
+
+        @staticmethod
+        def is_toll_free_phone_num(s: str) -> bool:
+            """080 수신자 부담 전화 형식 체크
+
+            Args:
+                s (str): _description_
+
+            Raises:
+                ValueError: _description_
+
+            Returns:
+                bool: _description_
+            """
+            if not s or not s.strip():
+                raise ValueError(ValidUtil.is_null_or_empty.format("s"))
+
+            cell_phone_regex = "^080-?(\\d{3,4})-?(\\d{4})$"
+
+            return bool(re.match(cell_phone_regex, s))
+
+        @staticmethod
+        def is_virtual_phone_num(s: str) -> bool:
+            """030, 050 평생번호 및 안심번호 형식 체크
+
+            Args:
+                s (str): _description_
+
+            Raises:
+                ValueError: _description_
+
+            Returns:
+                bool: _description_
+            """
+            if not s or not s.strip():
+                raise ValueError(ValidUtil.is_null_or_empty.format("s"))
+
+            cell_phone_regex = "^(030|050\\d)-?(\\d{3,4})-?(\\d{4})$"
+
+            return bool(re.match(cell_phone_regex, s))
+
+        @staticmethod
+        def is_business_phone_num(s: str) -> bool:
+            """15xx, 16xx, 18xx 등 전국 대표번호 형식 체크
+
+            Args:
+                s (str): _description_
+
+            Raises:
+                ValueError: _description_
+
+            Returns:
+                bool: _description_
+            """
+            if not s or not s.strip():
+                raise ValueError(ValidUtil.is_null_or_empty.format("s"))
+
+            cell_phone_regex = "^^(15|16|18)\\d{2}-?\\d{4}$"
+
+            return bool(re.match(cell_phone_regex, s))
 
         @staticmethod
         def is_cell_phone_num(s: str) -> bool:
