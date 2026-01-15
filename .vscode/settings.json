@@ -20,7 +20,8 @@
     "runable",
     "tobytes",
     "unpadder",
-    "urandom"
+    "urandom",
+    "venv"
   ],
   "editor.defaultFormatter": "ms-python.black-formatter",
   "editor.formatOnSave": true,
