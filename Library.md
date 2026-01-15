@@ -31,3 +31,6 @@
 
 10. device-detector
     - User-Agent 문자열 파싱 (Java의 Yauaa와 가장 유사)
+
+11. openpyxl
+    - 엑셀 파일 다루기 (Java의 Apache POI 대응)

@@ -13,7 +13,7 @@ class EncodeUtil:
     Author: 김대광
     """
 
-    __is_null_or_empty = "{} is null or empty"
+    _is_null_or_empty = "{} is null or empty"
 
     @classmethod
     def encode_base64(cls, text: str, charset: str | None = "utf-8") -> str | None:
@@ -30,7 +30,7 @@ class EncodeUtil:
             str | None: _description_
         """
         if not text or not text.strip():
-            raise ValueError(cls.__is_null_or_empty.format("str"))
+            raise ValueError(cls._is_null_or_empty.format("str"))
 
         try:
             raw_bytes = text.encode(charset)
@@ -68,7 +68,7 @@ class EncodeUtil:
             _type_: _description_
         """
         if not encoded_text or not encoded_text.strip():
-            raise ValueError(cls.__is_null_or_empty.format("encoded_text"))
+            raise ValueError(cls._is_null_or_empty.format("encoded_text"))
 
         try:
             decoded_bytes = base64.b64decode(encoded_text, validate=True)
@@ -102,7 +102,7 @@ class EncodeUtil:
             str | None: _description_
         """
         if not text or not text.strip():
-            raise ValueError(cls.__is_null_or_empty.format("str"))
+            raise ValueError(cls._is_null_or_empty.format("str"))
 
         try:
             return quote(text, encoding=charset)
@@ -135,7 +135,7 @@ class EncodeUtil:
             _type_: _description_
         """
         if not encoded_text or not encoded_text.strip():
-            raise ValueError(cls.__is_null_or_empty.format("encoded_text"))
+            raise ValueError(cls._is_null_or_empty.format("encoded_text"))
 
         try:
             return unquote(encoded_text, encoding=charset, errors="strict")

@@ -6,7 +6,7 @@ class FormattingUtil:
     Author: 김대광
     """
 
-    __is_null_or_empty = "{} is null or empty"
+    _is_null_or_empty = "{} is null or empty"
 
     __FORMAT_HYPHEN = r"\1-\2-\3"
     __FORMAT_NOT_HYPHEN = r"\1\2\3"
@@ -30,7 +30,7 @@ class FormattingUtil:
             str | None: _description_
         """
         if not s or not s.strip():
-            raise ValueError(cls.__is_null_or_empty.format("s"))
+            raise ValueError(cls._is_null_or_empty.format("s"))
 
         pattern = "^(02|03[1-3]|04[1-4]|05[1-5]|06[1-4])-?(\\d{3,4})-?(\\d{4})$"
         if not re.match(pattern, s):
@@ -55,7 +55,7 @@ class FormattingUtil:
             str | None: _description_
         """
         if not s or not s.strip():
-            raise ValueError(cls.__is_null_or_empty.format("s"))
+            raise ValueError(cls._is_null_or_empty.format("s"))
 
         pattern = "^(070)-?(\\d{3,4})-?(\\d{4})$"
         if not re.match(pattern, s):
@@ -80,7 +80,7 @@ class FormattingUtil:
             str | None: _description_
         """
         if not s or not s.strip():
-            raise ValueError(cls.__is_null_or_empty.format("s"))
+            raise ValueError(cls._is_null_or_empty.format("s"))
 
         pattern = "^(080)-?(\\d{3,4})-?(\\d{4})$"
         if not re.match(pattern, s):
@@ -105,7 +105,7 @@ class FormattingUtil:
             str | None: _description_
         """
         if not s or not s.strip():
-            raise ValueError(cls.__is_null_or_empty.format("s"))
+            raise ValueError(cls._is_null_or_empty.format("s"))
 
         pattern = "^(030|050\\d)-?(\\d{3,4})-?(\\d{4})$"
         if not re.match(pattern, s):
@@ -130,7 +130,7 @@ class FormattingUtil:
             str | None: _description_
         """
         if not s or not s.strip():
-            raise ValueError(cls.__is_null_or_empty.format("s"))
+            raise ValueError(cls._is_null_or_empty.format("s"))
 
         pattern = "^(15|16|18)(\\d{2})-?(\\d{4})$"
         if not re.match(pattern, s):
@@ -157,7 +157,7 @@ class FormattingUtil:
             str | None: _description_
         """
         if not s or not s.strip():
-            raise ValueError(cls.__is_null_or_empty.format("s"))
+            raise ValueError(cls._is_null_or_empty.format("s"))
 
         pattern = "^(01[016789])-?(\\d{3,4})-?(\\d{4})$"
         if not re.match(pattern, s):
@@ -182,7 +182,7 @@ class FormattingUtil:
             str | None: _description_
         """
         if not s or not s.strip():
-            raise ValueError(cls.__is_null_or_empty.format("s"))
+            raise ValueError(cls._is_null_or_empty.format("s"))
 
         pattern = "^(\\d{3})-?(\\d{2})-?(\\d{5})$"
         if not re.match(pattern, s):
@@ -207,7 +207,7 @@ class FormattingUtil:
             str | None: _description_
         """
         if not s or not s.strip():
-            raise ValueError(cls.__is_null_or_empty.format("s"))
+            raise ValueError(cls._is_null_or_empty.format("s"))
 
         date_pattern = "^(\\d{4})[\\-/. ]?(\\d{2})[\\-/. ]?(\\d{2})$"
 
@@ -240,7 +240,7 @@ class FormattingUtil:
             str | None: _description_
         """
         if not s or not s.strip():
-            raise ValueError(cls.__is_null_or_empty.format("s"))
+            raise ValueError(cls._is_null_or_empty.format("s"))
 
         length = len(s)
         if length == 16:
@@ -282,7 +282,7 @@ class FormattingUtil:
             str: _description_
         """
         if not s or not s.strip():
-            raise ValueError(cls.__is_null_or_empty.format("s"))
+            raise ValueError(cls._is_null_or_empty.format("s"))
 
         money_str = s.replace(",", "")
         if not money_str.isdigit():

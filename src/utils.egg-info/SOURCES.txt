@@ -3,8 +3,18 @@ pyproject.toml
 src/test/test.py
 src/test/user.py
 src/utils/__init__.py
+src/utils/age_util.py
+src/utils/carriage_return_util.py
+src/utils/encode_util.py
+src/utils/exception_message.py
+src/utils/formatting_util.py
+src/utils/gzip_compressor_util.py
 src/utils/json_util.py
+src/utils/mail_sender_util.py
+src/utils/masking_util.py
 src/utils/obj_util.py
+src/utils/paging_util.py
+src/utils/port_checker.py
 src/utils.egg-info/PKG-INFO
 src/utils.egg-info/SOURCES.txt
 src/utils.egg-info/dependency_links.txt
@@ -23,6 +33,9 @@ src/utils/crypto/seed_util.py
 src/utils/crypto/triple_des_util.py
 src/utils/date/__init__.py
 src/utils/date/date_util.py
+src/utils/date/holiday_util.py
+src/utils/excel/__init__.py
+src/utils/excel/openpyxl_util.py
 src/utils/file/__init__.py
 src/utils/file/file_type_util.py
 src/utils/file/file_util.py
@@ -35,3 +48,8 @@ src/utils/map/map_util.py
 src/utils/string/__init__.py
 src/utils/string/basic_string_utils.py
 src/utils/string/string_utils_sub.py
+src/utils/useragent/__init__.py
+src/utils/useragent/device_detector_util.py
+src/utils/useragent/user_agent_util.py
+src/utils/valid/__init__.py
+src/utils/valid/valid_util.py

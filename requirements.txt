@@ -6,10 +6,12 @@ cffi==2.0.0
 charset-normalizer==3.4.4
 cryptography==46.0.3
 device_detector==6.0.0
+et_xmlfile==2.0.0
 idna==3.11
 librt==0.7.7
 mypy==1.19.1
 mypy_extensions==1.1.0
+openpyxl==3.1.5
 pathspec==1.0.2
 pillow==12.1.0
 pycparser==2.23
@@ -22,4 +24,4 @@ requests==2.32.5
 six==1.17.0
 typing_extensions==4.15.0
 urllib3==2.6.3
--e git+https://github.com/kdk1026/python_util.git@edf5b8d54e33077e549102a5ef4d94bfb33e6a62#egg=utils
+-e git+https://github.com/kdk1026/python_util.git@fe29c66d414626e7ff16c3a58c3f1e80f1a66438#egg=utils

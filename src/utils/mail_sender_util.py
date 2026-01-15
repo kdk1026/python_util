@@ -16,7 +16,7 @@ class MailSenderUtil:
     Author: 김대광
     """
 
-    __is_null_or_empty = "{} is null or empty"
+    _is_null_or_empty = "{} is null or empty"
 
     @classmethod
     def send_email(
@@ -59,13 +59,13 @@ class MailSenderUtil:
             return False
 
         if not subject or not subject.strip():
-            raise ValueError(cls.__is_null_or_empty.format("subject"))
+            raise ValueError(cls._is_null_or_empty.format("subject"))
 
         if not body:
-            raise ValueError(cls.__is_null_or_empty.format("body"))
+            raise ValueError(cls._is_null_or_empty.format("body"))
 
         if not to_emails or len(to_emails) < 1:
-            raise ValueError(cls.__is_null_or_empty.format("body"))
+            raise ValueError(cls._is_null_or_empty.format("body"))
 
         try:
             with smtplib.SMTP_SSL(

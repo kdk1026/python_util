@@ -14,7 +14,7 @@ class HolidayUtil:
     Author: 김대광
     """
 
-    __is_null_or_empty = "{} is null or empty"
+    _is_null_or_empty = "{} is null or empty"
 
     __API_URL = (
         "http://apis.data.go.kr/B090041/openapi/service/SpcdeInfoService/getRestDeInfo"
@@ -43,7 +43,7 @@ class HolidayUtil:
         cls, service_decoding_key: str, year: int, month: int | None = None
     ) -> list | None:
         if not service_decoding_key or not service_decoding_key.strip():
-            raise ValueError(cls.__is_null_or_empty.format("service_decoding_key"))
+            raise ValueError(cls._is_null_or_empty.format("service_decoding_key"))
 
         if year < 1900 or year > 2100:
             raise ValueError("연도는 1900년에서 2100년 사이여야 합니다.")

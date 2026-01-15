@@ -10,12 +10,12 @@ class PortChecker:
     Author: 김대광
     """
 
-    __is_null_or_empty = "{} is null or empty"
+    _is_null_or_empty = "{} is null or empty"
 
     @classmethod
     def is_connected(cls, host: str, port: int) -> bool:
         if not host or not host.strip():
-            raise ValueError(cls.__is_null_or_empty.format("host"))
+            raise ValueError(cls._is_null_or_empty.format("host"))
 
         if not (0 <= port <= 65535):
             raise ValueError("port must be between 0 and 65535")

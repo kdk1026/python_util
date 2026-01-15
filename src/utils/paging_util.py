@@ -7,7 +7,7 @@ class PagingUtil:
     Author: 김대광
     """
 
-    __is_null_or_empty = "{} is null or empty"
+    _is_null_or_empty = "{} is null or empty"
     __is_negative = "{} is negative"
 
     def __init__(
@@ -28,7 +28,7 @@ class PagingUtil:
             raise ValueError(self.__is_negative.format("total_cnt"))
 
         if not current_page_str or not current_page_str.strip():
-            raise ValueError(self.__is_null_or_empty.format("current_page_str"))
+            raise ValueError(self._is_null_or_empty.format("current_page_str"))
 
         if not bool(re.match("^\\d+$", current_page_str)):
             raise ValueError("current_page_str not number")

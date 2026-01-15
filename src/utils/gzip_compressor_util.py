@@ -7,7 +7,7 @@ class GzipCompressorUtil:
     Author: 김대광
     """
 
-    __is_null_or_empty = "{} is null or empty"
+    _is_null_or_empty = "{} is null or empty"
 
     @classmethod
     def compress(cls, data: str) -> str:
@@ -23,7 +23,7 @@ class GzipCompressorUtil:
             str: _description_
         """
         if not data or not data.strip():
-            raise ValueError(cls.__is_null_or_empty.format("data"))
+            raise ValueError(cls._is_null_or_empty.format("data"))
 
         success_bytes = data.encode("utf-8")
 
@@ -45,7 +45,7 @@ class GzipCompressorUtil:
             str: _description_
         """
         if not compressed_data or not compressed_data.strip():
-            raise ValueError(cls.__is_null_or_empty.format("compressed_data"))
+            raise ValueError(cls._is_null_or_empty.format("compressed_data"))
 
         decoded_bytes = base64.b64decode(compressed_data)
 
