@@ -14,8 +14,8 @@ class TripleDesUtil:
     Author: 김대광
     """
 
-    is_null = "{} is null"
-    is_null_or_empty = "{} is null or empty"
+    _is_null = "{} is null"
+    _is_null_or_empty = "{} is null or empty"
 
     @staticmethod
     def generate_des_key(key_size: int) -> bytes:
@@ -48,12 +48,12 @@ class TripleDesUtil:
             str: _description_
         """
         if not key:
-            raise ValueError(TripleDesUtil.is_null_or_empty.format("key"))
+            raise ValueError(TripleDesUtil._is_null_or_empty.format("key"))
 
         return base64.b64encode(key).decode("utf-8")
 
     @staticmethod
-    def convert_string_to_key(base64_key_string: str) -> bytes:
+    def _convert_string_to_key(base64_key_string: str) -> bytes:
         """Base64 문자열을 키로 변환
 
         Args:
@@ -66,12 +66,16 @@ class TripleDesUtil:
             bytes: _description_
         """
         if not base64_key_string or not base64_key_string.strip():
-            raise ValueError(TripleDesUtil.is_null_or_empty.format("base64_key_string"))
+            raise ValueError(
+                TripleDesUtil._is_null_or_empty.format("base64_key_string")
+            )
 
         return base64.b64decode(base64_key_string)
 
-    @staticmethod
-    def encrypt(base64_key_string: str, iv_str: str, plain_text: str) -> EncryptResult:
+    @classmethod
+    def encrypt(
+        cls, base64_key_string: str, iv_str: str, plain_text: str
+    ) -> EncryptResult:
         """Triple DES 암호화
 
         Args:
@@ -87,19 +91,19 @@ class TripleDesUtil:
             EncryptResult: _description_
         """
         if not base64_key_string or not base64_key_string.strip():
-            raise ValueError(TripleDesUtil.is_null_or_empty.format("base64_key_string"))
+            raise ValueError(cls._is_null_or_empty.format("base64_key_string"))
 
         if not plain_text or not plain_text.strip():
-            raise ValueError(TripleDesUtil.is_null_or_empty.format("plain_text"))
+            raise ValueError(cls._is_null_or_empty.format("plain_text"))
 
-        key = TripleDesUtil.convert_string_to_key(base64_key_string)
+        key = cls._convert_string_to_key(base64_key_string)
 
         if iv_str is None:
             iv = get_random_bytes(DES3.block_size)
         elif isinstance(iv_str, str):
             iv = iv_str.encode("utf-8").ljust(8)[:8]
 
-        cipher = DES3.new(key, DES3.MODE_CBC, iv)
+        cipher = DES3.new(key, DES3.MODE_CBC, iv)  # NOSONAR
         padded_data = pad(plain_text.encode("utf-8"), DES3.block_size)
 
         cipher_text = cipher.encrypt(padded_data)
@@ -109,8 +113,9 @@ class TripleDesUtil:
         encrypt_result = EncryptResult(cipher_text, generated_iv_string)
         return encrypt_result
 
-    @staticmethod
+    @classmethod
     def decrypt(
+        cls,
         base64_key_string: str,
         iv_str: str,
         is_base6_iv: bool,
@@ -133,22 +138,22 @@ class TripleDesUtil:
             str: _description_
         """
         if not base64_key_string or not base64_key_string.strip():
-            raise ValueError(TripleDesUtil.is_null_or_empty.format("base64_key_string"))
+            raise ValueError(cls._is_null_or_empty.format("base64_key_string"))
 
         if not iv_str or not iv_str.strip():
-            raise ValueError(TripleDesUtil.is_null_or_empty.format("iv_str"))
+            raise ValueError(cls._is_null_or_empty.format("iv_str"))
 
         if not cipher_text or not cipher_text.strip():
-            raise ValueError(TripleDesUtil.is_null_or_empty.format("cipher_text"))
+            raise ValueError(cls._is_null_or_empty.format("cipher_text"))
 
-        key = TripleDesUtil.convert_string_to_key(base64_key_string)
+        key = cls._convert_string_to_key(base64_key_string)
 
         if is_base6_iv:
             iv = base64.b64decode(iv_str)
         else:
             iv = iv_str.encode("utf-8").ljust(16)[:16]
 
-        cipher = DES3.new(key, DES3.MODE_CBC, iv)
+        cipher = DES3.new(key, DES3.MODE_CBC, iv)  # NOSONAR
         decrypted_padded = cipher.decrypt(cipher_text)
 
         try:

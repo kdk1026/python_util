@@ -10,8 +10,8 @@ class JsonUtil:
     Author: 김대광
     """
 
-    is_null = "{} is null"
-    is_null_or_empty = "{} is null or empty"
+    _is_null = "{} is null"
+    _is_null_or_empty = "{} is null or empty"
 
     @classmethod
     def to_json(cls, obj: object | dict | list, is_pretty: bool = False) -> str:
@@ -28,7 +28,7 @@ class JsonUtil:
             str: _description_
         """
         if not obj:
-            raise ValueError(cls.is_null("obj"))
+            raise ValueError(cls._is_null("obj"))
 
         if isinstance(obj, dict) or isinstance(obj, list):
             return json.dumps(obj, ensure_ascii=False, indent=4 if is_pretty else None)
@@ -51,7 +51,7 @@ class JsonUtil:
             dict | list: _description_
         """
         if not json_str or not json_str.strip():
-            raise ValueError(cls.is_null_or_empty.format("json_str"))
+            raise ValueError(cls._is_null_or_empty.format("json_str"))
 
         return json.loads(json_str)
 
@@ -69,7 +69,7 @@ class JsonUtil:
             dict | list: _description_
         """
         if not file_path or not file_path.strip():
-            raise ValueError(cls.is_null_or_empty.format("file_path"))
+            raise ValueError(cls._is_null_or_empty.format("file_path"))
 
         if os.path.exists(file_path):
             try:

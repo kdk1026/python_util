@@ -16,9 +16,9 @@ class FileTypeUtil:
     Author: 김대광
     """
 
-    is_null = "{} is null"
-    is_null_or_empty = "{} is null or empty"
-    is_negative = "{} is negative"
+    _is_null = "{} is null"
+    _is_null_or_empty = "{} is null or empty"
+    _is_negative = "{} is negative"
 
     @classmethod
     def get_file_mime_type(cls, file_path: str) -> str | None:
@@ -36,7 +36,7 @@ class FileTypeUtil:
             str: _description_
         """
         if not file_path or not file_path.strip():
-            raise ValueError(cls.is_null_or_empty.format("file_path"))
+            raise ValueError(cls._is_null_or_empty.format("file_path"))
 
         path = Path(file_path)
         if not path.exists():
@@ -67,7 +67,7 @@ class FileTypeUtil:
             str | None: _description_
         """
         if not file_path or not file_path.strip():
-            raise ValueError(cls.is_null_or_empty.format("file_path"))
+            raise ValueError(cls._is_null_or_empty.format("file_path"))
 
         try:
             magic.Magic(mime_encoding=True)
@@ -92,10 +92,10 @@ class FileTypeUtil:
             bool: _description_
         """
         if not extension or not extension.strip():
-            raise ValueError(cls.is_null_or_empty.format("extension"))
+            raise ValueError(cls._is_null_or_empty.format("extension"))
 
         if not mime_type or not mime_type.strip():
-            raise ValueError(cls.is_null_or_empty.format("mime_type"))
+            raise ValueError(cls._is_null_or_empty.format("mime_type"))
 
         ext_arr = (
             "jpg",
@@ -154,10 +154,10 @@ class FileTypeUtil:
             bool: _description_
         """
         if not extension or not extension.strip():
-            raise ValueError(cls.is_null_or_empty.format("extension"))
+            raise ValueError(cls._is_null_or_empty.format("extension"))
 
         if not mime_type or not mime_type.strip():
-            raise ValueError(cls.is_null_or_empty.format("mime_type"))
+            raise ValueError(cls._is_null_or_empty.format("mime_type"))
 
         ext_arr = ("jpg", "jpeg", "png", "gif")
 
@@ -179,7 +179,7 @@ class FileTypeUtil:
             bool: _description_
         """
         if not image_stream:
-            raise ValueError(cls.is_null.format("image_stream"))
+            raise ValueError(cls._is_null.format("image_stream"))
 
         if isinstance(image_stream, bytes):
             image_stream = io.BytesIO(image_stream)
@@ -208,10 +208,10 @@ class FileTypeUtil:
             bool: _description_
         """
         if not extension or not extension.strip():
-            raise ValueError(cls.is_null_or_empty.format("extension"))
+            raise ValueError(cls._is_null_or_empty.format("extension"))
 
         if not mime_type or not mime_type.strip():
-            raise ValueError(cls.is_null_or_empty.format("mime_type"))
+            raise ValueError(cls._is_null_or_empty.format("mime_type"))
 
         ext_arr = ("pdf", "doc", "docx", "xls", "xlsx", "ppt", "pptx", "hwp", "txt")
 
@@ -247,10 +247,10 @@ class FileTypeUtil:
             bool: _description_
         """
         if not extension or not extension.strip():
-            raise ValueError(cls.is_null_or_empty.format("extension"))
+            raise ValueError(cls._is_null_or_empty.format("extension"))
 
         if not mime_type or not mime_type.strip():
-            raise ValueError(cls.is_null_or_empty.format("mime_type"))
+            raise ValueError(cls._is_null_or_empty.format("mime_type"))
 
         ext_arr = ("zip", "rar", "7z")
 
@@ -278,10 +278,10 @@ class FileTypeUtil:
             bool: _description_
         """
         if not extension or not extension.strip():
-            raise ValueError(cls.is_null_or_empty.format("extension"))
+            raise ValueError(cls._is_null_or_empty.format("extension"))
 
         if not mime_type or not mime_type.strip():
-            raise ValueError(cls.is_null_or_empty.format("mime_type"))
+            raise ValueError(cls._is_null_or_empty.format("mime_type"))
 
         ext_arr = ("mp3", "wav")
 
@@ -305,10 +305,10 @@ class FileTypeUtil:
             bool: _description_
         """
         if not extension or not extension.strip():
-            raise ValueError(cls.is_null_or_empty.format("extension"))
+            raise ValueError(cls._is_null_or_empty.format("extension"))
 
         if not mime_type or not mime_type.strip():
-            raise ValueError(cls.is_null_or_empty.format("mime_type"))
+            raise ValueError(cls._is_null_or_empty.format("mime_type"))
 
         ext_arr = ("mp4", "avi", "mov", "mkv")
 
@@ -337,7 +337,7 @@ class FileTypeUtil:
             bool: _description_
         """
         if not extension or not extension.strip():
-            raise ValueError(cls.is_null_or_empty.format("extension"))
+            raise ValueError(cls._is_null_or_empty.format("extension"))
 
         ext_arr = (
             "bat",

@@ -8,11 +8,11 @@ class FormattingUtil:
 
     _is_null_or_empty = "{} is null or empty"
 
-    __FORMAT_HYPHEN = r"\1-\2-\3"
-    __FORMAT_NOT_HYPHEN = r"\1\2\3"
+    _FORMAT_HYPHEN = r"\1-\2-\3"
+    _FORMAT_NOT_HYPHEN = r"\1\2\3"
 
-    __FORMAT_BIZ_HYPHEN = r"\1\2-\3"
-    __FORMAT_BIZ_NOT_HYPHEN = r"\12\3"
+    _FORMAT_BIZ_HYPHEN = r"\1\2-\3"
+    _FORMAT_BIZ_NOT_HYPHEN = r"\12\3"
 
     @classmethod
     def make_basic_phone_num(cls, s: str, is_hyphen: bool) -> str | None:
@@ -36,7 +36,7 @@ class FormattingUtil:
         if not re.match(pattern, s):
             return None
 
-        replacement = cls.__FORMAT_HYPHEN if is_hyphen else cls.__FORMAT_NOT_HYPHEN
+        replacement = cls._FORMAT_HYPHEN if is_hyphen else cls._FORMAT_NOT_HYPHEN
         return re.sub(pattern, replacement, s)
 
     @classmethod
@@ -61,7 +61,7 @@ class FormattingUtil:
         if not re.match(pattern, s):
             return None
 
-        replacement = cls.__FORMAT_HYPHEN if is_hyphen else cls.__FORMAT_NOT_HYPHEN
+        replacement = cls._FORMAT_HYPHEN if is_hyphen else cls._FORMAT_NOT_HYPHEN
         return re.sub(pattern, replacement, s)
 
     @classmethod
@@ -86,7 +86,7 @@ class FormattingUtil:
         if not re.match(pattern, s):
             return None
 
-        replacement = cls.__FORMAT_HYPHEN if is_hyphen else cls.__FORMAT_NOT_HYPHEN
+        replacement = cls._FORMAT_HYPHEN if is_hyphen else cls._FORMAT_NOT_HYPHEN
         return re.sub(pattern, replacement, s)
 
     @classmethod
@@ -111,7 +111,7 @@ class FormattingUtil:
         if not re.match(pattern, s):
             return None
 
-        replacement = cls.__FORMAT_HYPHEN if is_hyphen else cls.__FORMAT_NOT_HYPHEN
+        replacement = cls._FORMAT_HYPHEN if is_hyphen else cls._FORMAT_NOT_HYPHEN
         return re.sub(pattern, replacement, s)
 
     @classmethod
@@ -137,7 +137,7 @@ class FormattingUtil:
             return None
 
         replacement = (
-            cls.__FORMAT_BIZ_HYPHEN if is_hyphen else cls.__FORMAT_BIZ_NOT_HYPHEN
+            cls._FORMAT_BIZ_HYPHEN if is_hyphen else cls._FORMAT_BIZ_NOT_HYPHEN
         )
         return re.sub(pattern, replacement, s)
 
@@ -163,7 +163,7 @@ class FormattingUtil:
         if not re.match(pattern, s):
             return None
 
-        replacement = cls.__FORMAT_HYPHEN if is_hyphen else cls.__FORMAT_NOT_HYPHEN
+        replacement = cls._FORMAT_HYPHEN if is_hyphen else cls._FORMAT_NOT_HYPHEN
         return re.sub(pattern, replacement, s)
 
     @classmethod
@@ -188,7 +188,7 @@ class FormattingUtil:
         if not re.match(pattern, s):
             return None
 
-        replacement = cls.__FORMAT_HYPHEN if is_hyphen else cls.__FORMAT_NOT_HYPHEN
+        replacement = cls._FORMAT_HYPHEN if is_hyphen else cls._FORMAT_NOT_HYPHEN
         return re.sub(pattern, replacement, s)
 
     @classmethod
@@ -248,7 +248,7 @@ class FormattingUtil:
             replacement = r"\1-\2-\3-\4" if is_hyphen else "\1\2\3\4"
         elif length == 15:
             pattern = "^(\\d{4})-?(\\d{6})-?(\\d{5})$"
-            replacement = cls.__FORMAT_HYPHEN if is_hyphen else cls.__FORMAT_NOT_HYPHEN
+            replacement = cls._FORMAT_HYPHEN if is_hyphen else cls._FORMAT_NOT_HYPHEN
 
         if not re.match(pattern, s):
             return None

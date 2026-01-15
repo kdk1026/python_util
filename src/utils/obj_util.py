@@ -9,8 +9,8 @@ class ObjectUtil:
     Author: 김대광
     """
 
-    is_null = "{} is null"
-    is_null_or_empty = "{} is null or empty"
+    _is_null = "{} is null"
+    _is_null_or_empty = "{} is null or empty"
 
     @classmethod
     def is_blank(cls, obj: object, field_name: str) -> bool:
@@ -28,10 +28,10 @@ class ObjectUtil:
             bool: _description_
         """
         if not obj:
-            raise ValueError(cls.is_null("obj"))
+            raise ValueError(cls._is_null("obj"))
 
         if not field_name or not field_name.strip():
-            raise ValueError(cls.is_null_or_empty.format("json_str"))
+            raise ValueError(cls._is_null_or_empty.format("json_str"))
 
         value = getattr(obj, field_name, None)
 
@@ -57,7 +57,7 @@ class ObjectUtil:
             list: _description_
         """
         if not obj:
-            raise ValueError(cls.is_null("obj"))
+            raise ValueError(cls._is_null("obj"))
 
         return list(vars(obj).keys())
 
@@ -74,10 +74,10 @@ class ObjectUtil:
             ValueError: _description_
         """
         if not map:
-            raise ValueError(cls.is_null("map"))
+            raise ValueError(cls._is_null("map"))
 
         if not obj:
-            raise ValueError(cls.is_null("obj"))
+            raise ValueError(cls._is_null("obj"))
 
         for key, value in map.items():
             setattr(obj, key, value)
@@ -98,10 +98,10 @@ class ObjectUtil:
             int: _description_
         """
         if not obj:
-            raise ValueError(cls.is_null("obj"))
+            raise ValueError(cls._is_null("obj"))
 
         if not encoding or not encoding.strip():
-            raise ValueError(cls.is_null_or_empty.format("encoding"))
+            raise ValueError(cls._is_null_or_empty.format("encoding"))
 
         byte_len = 0
 
@@ -140,13 +140,13 @@ class ObjectUtil:
             int: _description_
         """
         if not obj:
-            raise ValueError(cls.is_null("obj"))
+            raise ValueError(cls._is_null("obj"))
 
         if not exclude_field or not exclude_field.strip():
-            raise ValueError(cls.is_null_or_empty.format("exclude_field"))
+            raise ValueError(cls._is_null_or_empty.format("exclude_field"))
 
         if not encoding or not encoding.strip():
-            raise ValueError(cls.is_null_or_empty.format("encoding"))
+            raise ValueError(cls._is_null_or_empty.format("encoding"))
 
         byte_len = 0
 

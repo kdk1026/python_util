@@ -3,7 +3,7 @@ class CarriageReturnUtil:
     Author: 김대광
     """
 
-    __BR_TAG = "<br />"
+    _BR_TAG = "<br />"
 
     @classmethod
     def change_br_tag(cls, content: str) -> str | None:
@@ -22,7 +22,7 @@ class CarriageReturnUtil:
             return None
 
         return (
-            content.replace("\r\n", cls.__BR_TAG)
-            .replace("\r", cls.__BR_TAG)
-            .replace("\n", cls.__BR_TAG)
+            content.replace("\r\n", cls._BR_TAG)
+            .replace("\r", cls._BR_TAG)
+            .replace("\n", cls._BR_TAG)
         )

@@ -12,6 +12,7 @@
     "locdate",
     "millis",
     "NOPADDING",
+    "NOSONAR",
     "OAEP",
     "padder",
     "PKCS",
@@ -19,6 +20,7 @@
     "relativedelta",
     "runable",
     "tobytes",
+    "unpad",
     "unpadder",
     "urandom",
     "venv"

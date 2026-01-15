@@ -11,8 +11,8 @@ class DeviceDetectorUtil:
     Author: 김대광
     """
 
-    is_null = "{} is null"
-    is_null_or_empty = "{} is null or empty"
+    _is_null = "{} is null"
+    _is_null_or_empty = "{} is null or empty"
 
     @staticmethod
     @lru_cache(maxsize=10000)
@@ -33,7 +33,7 @@ class DeviceDetectorUtil:
             dict: _description_
         """
         if not ua_string or not ua_string.strip():
-            raise ValueError(cls.is_null_or_empty.format("ua_string"))
+            raise ValueError(cls._is_null_or_empty.format("ua_string"))
 
         result = cls._get_parsed_result(ua_string)
 
@@ -70,10 +70,10 @@ class DeviceDetectorUtil:
             str: _description_
         """
         if not ua_string or not ua_string.strip():
-            raise ValueError(cls.is_null_or_empty.format("ua_string"))
+            raise ValueError(cls._is_null_or_empty.format("ua_string"))
 
         if not field_name or not field_name.strip():
-            raise ValueError(cls.is_null_or_empty.format("field_name"))
+            raise ValueError(cls._is_null_or_empty.format("field_name"))
 
         result = cls._get_parsed_result(ua_string)
 

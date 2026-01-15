@@ -9,8 +9,8 @@ class IniUtil:
     Author: 김대광
     """
 
-    is_null_or_empty = "{} is null or empty"
-    is_not_read_file = "파일을 찾을 수 없거나 읽지 못했습니다."
+    _is_null_or_empty = "{} is null or empty"
+    _is_not_read_file = "파일을 찾을 수 없거나 읽지 못했습니다."
 
     @classmethod
     def get_ini(cls, file_path: str, section: str, key: str) -> str | None:
@@ -31,20 +31,20 @@ class IniUtil:
         """
 
         if not file_path or not file_path.strip():
-            raise ValueError(cls.is_null_or_empty.format("file_path"))
+            raise ValueError(cls._is_null_or_empty.format("file_path"))
 
         if not section or not section.strip():
-            raise ValueError(cls.is_null_or_empty.format("section"))
+            raise ValueError(cls._is_null_or_empty.format("section"))
 
         if not key or not key.strip():
-            raise ValueError(cls.is_null_or_empty.format("key"))
+            raise ValueError(cls._is_null_or_empty.format("key"))
 
         config = configparser.ConfigParser()
 
         read_files = config.read(file_path, encoding="utf-8")
 
         if not read_files:
-            logger.error(cls.is_not_read_file)
+            logger.error(cls._is_not_read_file)
             return None
 
         return config[section][key]
@@ -65,17 +65,17 @@ class IniUtil:
             list: _description_
         """
         if not file_path or not file_path.strip():
-            raise ValueError(cls.is_null_or_empty.format("file_path"))
+            raise ValueError(cls._is_null_or_empty.format("file_path"))
 
         if not section or not section.strip():
-            raise ValueError(cls.is_null_or_empty.format("section"))
+            raise ValueError(cls._is_null_or_empty.format("section"))
 
         config = configparser.ConfigParser()
 
         read_files = config.read(file_path, encoding="utf-8")
 
         if not read_files:
-            logger.error(cls.is_not_read_file)
+            logger.error(cls._is_not_read_file)
             return None
 
         return dict(config.items(section))
@@ -96,10 +96,10 @@ class IniUtil:
             str: _description_
         """
         if not file_path or not file_path.strip():
-            raise ValueError(cls.is_null_or_empty.format("file_path"))
+            raise ValueError(cls._is_null_or_empty.format("file_path"))
 
         if not key or not key.strip():
-            raise ValueError(cls.is_null_or_empty.format("key"))
+            raise ValueError(cls._is_null_or_empty.format("key"))
 
         try:
             with open(file_path, "r", encoding="utf-8") as f:
@@ -130,23 +130,23 @@ class IniUtil:
             ValueError: _description_
         """
         if not file_path or not file_path.strip():
-            raise ValueError(cls.is_null_or_empty.format("file_path"))
+            raise ValueError(cls._is_null_or_empty.format("file_path"))
 
         if not section or not section.strip():
-            raise ValueError(cls.is_null_or_empty.format("section"))
+            raise ValueError(cls._is_null_or_empty.format("section"))
 
         if not key or not key.strip():
-            raise ValueError(cls.is_null_or_empty.format("key"))
+            raise ValueError(cls._is_null_or_empty.format("key"))
 
         if not value or not value.strip():
-            raise ValueError(cls.is_null_or_empty.format("value"))
+            raise ValueError(cls._is_null_or_empty.format("value"))
 
         config = configparser.ConfigParser()
 
         read_files = config.read(file_path, encoding="utf-8")
 
         if not read_files:
-            logger.error(cls.is_not_read_file)
+            logger.error(cls._is_not_read_file)
             return None
 
         if not config.has_section(section):
@@ -174,23 +174,23 @@ class IniUtil:
             ValueError: _description_
         """
         if not file_path or not file_path.strip():
-            raise ValueError(cls.is_null_or_empty.format("file_path"))
+            raise ValueError(cls._is_null_or_empty.format("file_path"))
 
         if not section or not section.strip():
-            raise ValueError(cls.is_null_or_empty.format("section"))
+            raise ValueError(cls._is_null_or_empty.format("section"))
 
         if not key or not key.strip():
-            raise ValueError(cls.is_null_or_empty.format("key"))
+            raise ValueError(cls._is_null_or_empty.format("key"))
 
         if not value or not value.strip():
-            raise ValueError(cls.is_null_or_empty.format("value"))
+            raise ValueError(cls._is_null_or_empty.format("value"))
 
         config = configparser.ConfigParser()
 
         read_files = config.read(file_path, encoding="utf-8")
 
         if not read_files:
-            logger.error(cls.is_not_read_file)
+            logger.error(cls._is_not_read_file)
             return None
 
         config.set(section, key, value)
@@ -211,17 +211,17 @@ class IniUtil:
             ValueError: _description_
         """
         if not file_path or not file_path.strip():
-            raise ValueError(cls.is_null_or_empty.format("file_path"))
+            raise ValueError(cls._is_null_or_empty.format("file_path"))
 
         if not section or not section.strip():
-            raise ValueError(cls.is_null_or_empty.format("section"))
+            raise ValueError(cls._is_null_or_empty.format("section"))
 
         config = configparser.ConfigParser()
 
         read_files = config.read(file_path, encoding="utf-8")
 
         if not read_files:
-            logger.error(cls.is_not_read_file)
+            logger.error(cls._is_not_read_file)
             return None
 
         if config.options(section):
@@ -245,20 +245,20 @@ class IniUtil:
             ValueError: _description_
         """
         if not file_path or not file_path.strip():
-            raise ValueError(cls.is_null_or_empty.format("file_path"))
+            raise ValueError(cls._is_null_or_empty.format("file_path"))
 
         if not section or not section.strip():
-            raise ValueError(cls.is_null_or_empty.format("section"))
+            raise ValueError(cls._is_null_or_empty.format("section"))
 
         if not key or not key.strip():
-            raise ValueError(cls.is_null_or_empty.format("key"))
+            raise ValueError(cls._is_null_or_empty.format("key"))
 
         config = configparser.ConfigParser()
 
         read_files = config.read(file_path, encoding="utf-8")
 
         if not read_files:
-            logger.error(cls.is_not_read_file)
+            logger.error(cls._is_not_read_file)
             return None
 
         if config[section][key]:

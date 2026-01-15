@@ -11,8 +11,8 @@ class FileUtil:
     Author: 김대광
     """
 
-    is_null_or_empty = "{} is null or empty"
-    is_negative = "{} is negative"
+    _is_null_or_empty = "{} is null or empty"
+    _is_negative = "{} is negative"
 
     @classmethod
     def is_exists_file(cls, file_path: str) -> bool:
@@ -28,7 +28,7 @@ class FileUtil:
             bool: _description_
         """
         if not file_path or not file_path.strip():
-            raise ValueError(cls.is_null_or_empty.format("file_path"))
+            raise ValueError(cls._is_null_or_empty.format("file_path"))
 
         path = Path(file_path)
         return path.exists()
@@ -47,7 +47,7 @@ class FileUtil:
             str: _description_
         """
         if not file_path or not file_path.strip():
-            raise ValueError(cls.is_null_or_empty.format("file_path"))
+            raise ValueError(cls._is_null_or_empty.format("file_path"))
 
         path = Path(file_path)
         return path.name
@@ -66,7 +66,7 @@ class FileUtil:
             str: _description_
         """
         if not file_name or not file_name.strip():
-            raise ValueError(cls.is_null_or_empty.format("file_name"))
+            raise ValueError(cls._is_null_or_empty.format("file_name"))
 
         path = Path(file_name)
         return path.suffix.replace(".", "")
@@ -82,7 +82,7 @@ class FileUtil:
             int: _description_
         """
         if not file_path or not file_path.strip():
-            raise ValueError(cls.is_null_or_empty.format("file_path"))
+            raise ValueError(cls._is_null_or_empty.format("file_path"))
 
         path = Path(file_path)
         return path.stat().st_size
@@ -99,7 +99,7 @@ class FileUtil:
             str: _description_
         """
         if file_size < 0:
-            raise ValueError(cls.is_null_or_empty.format("file_size"))
+            raise ValueError(cls._is_null_or_empty.format("file_size"))
 
         for unit in ["B", "KB", "MB", "GB", "TB"]:
             if file_size < 1024:
@@ -120,7 +120,7 @@ class FileUtil:
             str: _description_
         """
         if not file_path or not file_path.strip():
-            raise ValueError(cls.is_null_or_empty.format("file_path"))
+            raise ValueError(cls._is_null_or_empty.format("file_path"))
 
         path = Path(file_path)
         mtime = path.stat().st_mtime
@@ -137,10 +137,10 @@ class FileUtil:
             text (str): _description_
         """
         if not file_path or not file_path.strip():
-            raise ValueError(cls.is_null_or_empty.format("file_path"))
+            raise ValueError(cls._is_null_or_empty.format("file_path"))
 
         if not text or not text.strip():
-            raise ValueError(cls.is_null_or_empty.format("text"))
+            raise ValueError(cls._is_null_or_empty.format("text"))
 
         with open(file_path, "w", encoding="utf-8") as f:
             f.write(text)
@@ -155,13 +155,13 @@ class FileUtil:
             encoding (str): _description_
         """
         if not file_path or not file_path.strip():
-            raise ValueError(cls.is_null_or_empty.format("file_path"))
+            raise ValueError(cls._is_null_or_empty.format("file_path"))
 
         if not text or not text.strip():
-            raise ValueError(cls.is_null_or_empty.format("text"))
+            raise ValueError(cls._is_null_or_empty.format("text"))
 
         if not encoding or not encoding.strip():
-            raise ValueError(cls.is_null_or_empty.format("encoding"))
+            raise ValueError(cls._is_null_or_empty.format("encoding"))
 
         with open(file_path, "w", encoding=encoding) as f:
             f.write(text)
@@ -174,7 +174,7 @@ class FileUtil:
             file_path (str): _description_
         """
         if not file_path or not file_path.strip():
-            raise ValueError(cls.is_null_or_empty.format("file_path"))
+            raise ValueError(cls._is_null_or_empty.format("file_path"))
 
         with open(file_path, "r", encoding="utf-8") as f:
             content = f.read()
@@ -190,7 +190,7 @@ class FileUtil:
             encoding (str): _description_
         """
         if not file_path or not file_path.strip():
-            raise ValueError(cls.is_null_or_empty.format("file_path"))
+            raise ValueError(cls._is_null_or_empty.format("file_path"))
 
         with open(file_path, "r", encoding=encoding) as f:
             content = f.read()
@@ -208,7 +208,7 @@ class FileUtil:
             ValueError: _description_
         """
         if not file_path or not file_path.strip():
-            raise ValueError(cls.is_null_or_empty.format("file_path"))
+            raise ValueError(cls._is_null_or_empty.format("file_path"))
 
         path = Path(file_path)
 
@@ -230,10 +230,10 @@ class FileUtil:
             ValueError: _description_
         """
         if not src_file_path or not src_file_path.strip():
-            raise ValueError(cls.is_null_or_empty.format("src_file_path"))
+            raise ValueError(cls._is_null_or_empty.format("src_file_path"))
 
         if not dest_file_path or not dest_file_path.strip():
-            raise ValueError(cls.is_null_or_empty.format("dest_file_path"))
+            raise ValueError(cls._is_null_or_empty.format("dest_file_path"))
 
         shutil.copy(src_file_path, dest_file_path)
 
@@ -251,7 +251,7 @@ class FileUtil:
             list: _description_
         """
         if not file_path or not file_path.strip():
-            raise ValueError(cls.is_null_or_empty.format("file_path"))
+            raise ValueError(cls._is_null_or_empty.format("file_path"))
 
         path = Path(file_path)
 
@@ -274,7 +274,7 @@ class FileUtil:
             list: _description_
         """
         if not file_path or not file_path.strip():
-            raise ValueError(cls.is_null_or_empty.format("file_path"))
+            raise ValueError(cls._is_null_or_empty.format("file_path"))
 
         path = Path(file_path)
 
@@ -297,7 +297,7 @@ class FileUtil:
             list: _description_
         """
         if not file_path or not file_path.strip():
-            raise ValueError(cls.is_null_or_empty.format("file_path"))
+            raise ValueError(cls._is_null_or_empty.format("file_path"))
 
         path = Path(file_path)
 
@@ -320,7 +320,7 @@ class FileUtil:
             bytes | None: _description_
         """
         if not file_path or not file_path.strip():
-            raise ValueError(cls.is_null_or_empty.format("file_path"))
+            raise ValueError(cls._is_null_or_empty.format("file_path"))
 
         path = Path(file_path)
 

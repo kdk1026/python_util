@@ -9,7 +9,7 @@ class AgeUtil:
     Author: 김대광
     """
 
-    is_null_or_empty = "{} is null or empty"
+    _is_null_or_empty = "{} is null or empty"
 
     @classmethod
     def get_age(cls, birth_day: str, fix_day: str | None = None) -> int:
@@ -27,7 +27,7 @@ class AgeUtil:
             _type_: _description_
         """
         if not birth_day or not birth_day.strip():
-            raise ValueError(cls.is_null_or_empty.format("birth_day"))
+            raise ValueError(cls._is_null_or_empty.format("birth_day"))
 
         formatter = "%Y%m%d"
 
@@ -61,7 +61,7 @@ class AgeUtil:
             _type_: _description_
         """
         if not birth_day or not birth_day.strip():
-            raise ValueError(cls.is_null_or_empty.format("birth_day"))
+            raise ValueError(cls._is_null_or_empty.format("birth_day"))
 
         formatter = "%Y%m%d"
 
@@ -90,7 +90,7 @@ class AgeUtil:
             int: _description_
         """
         if not birth_day or not birth_day.strip():
-            raise ValueError(cls.is_null_or_empty.format("birth_day"))
+            raise ValueError(cls._is_null_or_empty.format("birth_day"))
 
         formatter = "%Y%m%d"
 

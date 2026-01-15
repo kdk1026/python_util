@@ -6,12 +6,12 @@ class BcryptUtil:
     Author: 김대광
     """
 
-    ORIGINAL_TEXT_IS_NULL = (
+    _ORIGINAL_TEXT_IS_NULL = (
         "원본 텍스트가 비어 있거나 null입니다. 해싱을 수행할 수 없습니다."
     )
 
-    @staticmethod
-    def bcrypt_hash(original_text: str) -> str:
+    @classmethod
+    def bcrypt_hash(cls, original_text: str) -> str:
         """Bcrypt 해싱
 
         Args:
@@ -24,15 +24,15 @@ class BcryptUtil:
             str: _description_
         """
         if not original_text or not original_text.strip():
-            raise ValueError(BcryptUtil.ORIGINAL_TEXT_IS_NULL)
+            raise ValueError(cls._ORIGINAL_TEXT_IS_NULL)
 
         salt = bcrypt.gensalt(rounds=12)
         hashed = bcrypt.hashpw(original_text.encode("utf-8"), salt)
 
         return hashed.decode("utf-8")
 
-    @staticmethod
-    def check_bcrypt_hash(original_text: str, hashed_text: str) -> bool:
+    @classmethod
+    def check_bcrypt_hash(cls, original_text: str, hashed_text: str) -> bool:
         """Bcrypt 해싱 검증
 
         Args:
@@ -47,7 +47,7 @@ class BcryptUtil:
             bool: _description_
         """
         if not original_text or not original_text.strip():
-            raise ValueError(BcryptUtil.ORIGINAL_TEXT_IS_NULL)
+            raise ValueError(cls._ORIGINAL_TEXT_IS_NULL)
 
         if not hashed_text or not hashed_text.strip():
             raise ValueError(

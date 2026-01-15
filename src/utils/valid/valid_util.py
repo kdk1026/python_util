@@ -13,7 +13,7 @@ class ValidUtil:
     Author: 김대광
     """
 
-    is_null_or_empty = "{} is null or empty"
+    _is_null_or_empty = "{} is null or empty"
 
     @staticmethod
     def is_blank(s: str) -> bool:
@@ -44,7 +44,7 @@ class ValidUtil:
             bool: _description_
         """
         if not s or not s.strip():
-            raise ValueError(cls.is_null_or_empty.format("s"))
+            raise ValueError(cls._is_null_or_empty.format("s"))
 
         if min < 0 or max < 0:
             raise ValueError("min or max is less than 0.")
@@ -66,7 +66,7 @@ class ValidUtil:
             bool: _description_
         """
         if not url_str or not url_str.strip():
-            raise ValueError(cls.is_null_or_empty.format("url_strs"))
+            raise ValueError(cls._is_null_or_empty.format("url_strs"))
 
         try:
             parsed = urlparse(url_str)
@@ -98,7 +98,7 @@ class ValidUtil:
                 bool: _description_
             """
             if not s or not s.strip():
-                raise ValueError(ValidUtil.is_null_or_empty.format("s"))
+                raise ValueError(ValidUtil._is_null_or_empty.format("s"))
 
             return bool(re.match("^\\d+$", s))
 
@@ -116,7 +116,7 @@ class ValidUtil:
                 bool: _description_
             """
             if not s or not s.strip():
-                raise ValueError(ValidUtil.is_null_or_empty.format("s"))
+                raise ValueError(ValidUtil._is_null_or_empty.format("s"))
 
             return bool(re.match("^[a-zA-Z]+$", s))
 
@@ -134,7 +134,7 @@ class ValidUtil:
                 bool: _description_
             """
             if not s or not s.strip():
-                raise ValueError(ValidUtil.is_null_or_empty.format("s"))
+                raise ValueError(ValidUtil._is_null_or_empty.format("s"))
 
             return bool(re.match("^[a-zA-Z\\s]+$", s))
 
@@ -152,7 +152,7 @@ class ValidUtil:
                 bool: _description_
             """
             if not s or not s.strip():
-                raise ValueError(ValidUtil.is_null_or_empty.format("s"))
+                raise ValueError(ValidUtil._is_null_or_empty.format("s"))
 
             return bool(re.match("^[a-zA-Z0-9]+$", s))
 
@@ -170,7 +170,7 @@ class ValidUtil:
                 bool: _description_
             """
             if not s or not s.strip():
-                raise ValueError(ValidUtil.is_null_or_empty.format("s"))
+                raise ValueError(ValidUtil._is_null_or_empty.format("s"))
 
             return bool(re.match("^[가-힣]+$", s))
 
@@ -188,7 +188,7 @@ class ValidUtil:
                 bool: _description_
             """
             if not s or not s.strip():
-                raise ValueError(ValidUtil.is_null_or_empty.format("s"))
+                raise ValueError(ValidUtil._is_null_or_empty.format("s"))
 
             return bool(re.match("^[가-힣\\s]+$", s))
 
@@ -206,7 +206,7 @@ class ValidUtil:
                 bool: _description_
             """
             if not s or not s.strip():
-                raise ValueError(ValidUtil.is_null_or_empty.format("s"))
+                raise ValueError(ValidUtil._is_null_or_empty.format("s"))
 
             return bool(re.match("^[가-힣a-zA-Z]+$", s))
 
@@ -224,7 +224,7 @@ class ValidUtil:
                 bool: _description_
             """
             if not s or not s.strip():
-                raise ValueError(ValidUtil.is_null_or_empty.format("s"))
+                raise ValueError(ValidUtil._is_null_or_empty.format("s"))
 
             return bool(re.search("[^\\w\\s]", s))
 
@@ -242,7 +242,7 @@ class ValidUtil:
                 bool: _description_
             """
             if not s or not s.strip():
-                raise ValueError(ValidUtil.is_null_or_empty.format("s"))
+                raise ValueError(ValidUtil._is_null_or_empty.format("s"))
 
             return bool(re.search("[\\s]", s))
 
@@ -260,7 +260,7 @@ class ValidUtil:
                 bool: _description_
             """
             if not s or not s.strip():
-                raise ValueError(ValidUtil.is_null_or_empty.format("s"))
+                raise ValueError(ValidUtil._is_null_or_empty.format("s"))
 
             return bool(re.match("[^가-힣]+", s))
 
@@ -287,7 +287,7 @@ class ValidUtil:
                 bool: _description_
             """
             if not s or not s.strip():
-                raise ValueError(ValidUtil.is_null_or_empty.format("s"))
+                raise ValueError(ValidUtil._is_null_or_empty.format("s"))
 
             email_regex = "^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,}$"
 
@@ -313,7 +313,7 @@ class ValidUtil:
                 bool: _description_
             """
             if not s or not s.strip():
-                raise ValueError(ValidUtil.is_null_or_empty.format("s"))
+                raise ValueError(ValidUtil._is_null_or_empty.format("s"))
 
             return (
                 cls.is_cell_phone_num(s)
@@ -343,7 +343,7 @@ class ValidUtil:
                 bool: _description_
             """
             if not s or not s.strip():
-                raise ValueError(ValidUtil.is_null_or_empty.format("s"))
+                raise ValueError(ValidUtil._is_null_or_empty.format("s"))
 
             cell_phone_regex = (
                 "^(02|03[1-3]|04[1-4]|05[1-5]|06[1-4])-?(\\d{3,4})-?(\\d{4})$"
@@ -365,7 +365,7 @@ class ValidUtil:
                 bool: _description_
             """
             if not s or not s.strip():
-                raise ValueError(ValidUtil.is_null_or_empty.format("s"))
+                raise ValueError(ValidUtil._is_null_or_empty.format("s"))
 
             cell_phone_regex = "^070-?(\\d{3,4})-?(\\d{4})$"
 
@@ -385,7 +385,7 @@ class ValidUtil:
                 bool: _description_
             """
             if not s or not s.strip():
-                raise ValueError(ValidUtil.is_null_or_empty.format("s"))
+                raise ValueError(ValidUtil._is_null_or_empty.format("s"))
 
             cell_phone_regex = "^080-?(\\d{3,4})-?(\\d{4})$"
 
@@ -405,7 +405,7 @@ class ValidUtil:
                 bool: _description_
             """
             if not s or not s.strip():
-                raise ValueError(ValidUtil.is_null_or_empty.format("s"))
+                raise ValueError(ValidUtil._is_null_or_empty.format("s"))
 
             cell_phone_regex = "^(030|050\\d)-?(\\d{3,4})-?(\\d{4})$"
 
@@ -425,7 +425,7 @@ class ValidUtil:
                 bool: _description_
             """
             if not s or not s.strip():
-                raise ValueError(ValidUtil.is_null_or_empty.format("s"))
+                raise ValueError(ValidUtil._is_null_or_empty.format("s"))
 
             cell_phone_regex = "^^(15|16|18)\\d{2}-?\\d{4}$"
 
@@ -445,7 +445,7 @@ class ValidUtil:
                 bool: _description_
             """
             if not s or not s.strip():
-                raise ValueError(ValidUtil.is_null_or_empty.format("s"))
+                raise ValueError(ValidUtil._is_null_or_empty.format("s"))
 
             cell_phone_regex = "^010-?\\d{4}-?\\d{4}$"
 
@@ -467,7 +467,7 @@ class ValidUtil:
                 bool: _description_
             """
             if not s or not s.strip():
-                raise ValueError(ValidUtil.is_null_or_empty.format("s"))
+                raise ValueError(ValidUtil._is_null_or_empty.format("s"))
 
             company_reg_num_regex = "^\\d{3}-?\\d{2}-?\\d{5}$"
 
@@ -487,7 +487,7 @@ class ValidUtil:
                 bool: _description_
             """
             if not s or not s.strip():
-                raise ValueError(ValidUtil.is_null_or_empty.format("s"))
+                raise ValueError(ValidUtil._is_null_or_empty.format("s"))
 
             # 0부터 255까지의 숫자를 나타내는 정규식 패턴
             # (?:...): 논캡처링 그룹. 성능에 약간의 이점을 줄 수 있습니다.
@@ -522,7 +522,7 @@ class ValidUtil:
                 bool: _description_
             """
             if not s or not s.strip():
-                raise ValueError(ValidUtil.is_null_or_empty.format("s"))
+                raise ValueError(ValidUtil._is_null_or_empty.format("s"))
 
             if not bool(re.match("^(\\d{8}|\\d{4}-\\d{2}-\\d{2})$", s)):
                 return False
@@ -554,7 +554,7 @@ class ValidUtil:
                 bool: _description_
             """
             if not s or not s.strip():
-                raise ValueError(ValidUtil.is_null_or_empty.format("s"))
+                raise ValueError(ValidUtil._is_null_or_empty.format("s"))
 
             return bool(re.match("^([01]\\d|2[0-3])[0-5]\\d$", s))
 
@@ -574,7 +574,7 @@ class ValidUtil:
                 bool: _description_
             """
             if not s or not s.strip():
-                raise ValueError(ValidUtil.is_null_or_empty.format("s"))
+                raise ValueError(ValidUtil._is_null_or_empty.format("s"))
 
             return bool(re.match("^(?:[01]\\d|2[0-3])[0-5]\\d[0-5]\\d$", s))
 
@@ -592,7 +592,7 @@ class ValidUtil:
                 bool: _description_
             """
             if not s or not s.strip():
-                raise ValueError(ValidUtil.is_null_or_empty.format("s"))
+                raise ValueError(ValidUtil._is_null_or_empty.format("s"))
 
             return bool(re.match("^[YN]$", s))
 
@@ -617,7 +617,7 @@ class ValidUtil:
                 bool: _description_
             """
             if not s or not s.strip():
-                raise ValueError(ValidUtil.is_null_or_empty.format("s"))
+                raise ValueError(ValidUtil._is_null_or_empty.format("s"))
 
             return bool(re.match("^[a-zA-Z][a-zA-Z0-9]{6,29}$", s))
 
@@ -640,7 +640,7 @@ class ValidUtil:
                 bool: _description_
             """
             if not s or not s.strip():
-                raise ValueError(ValidUtil.is_null_or_empty.format("s"))
+                raise ValueError(ValidUtil._is_null_or_empty.format("s"))
 
             # 1. 첫 글자 영문 확인 및 허용 문자 검증
             if not re.match("^[a-zA-Z][a-zA-Z\\d\\W]*$", s):

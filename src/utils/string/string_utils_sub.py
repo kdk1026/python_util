@@ -1,3 +1,4 @@
+from calendar import c
 import html
 import logging
 import math
@@ -11,8 +12,8 @@ class StringUtilsSub:
     Author: 김대광
     """
 
-    is_null_or_empty = "{} is null or empty"
-    is_negative = "{} is negative"
+    _is_null_or_empty = "{} is null or empty"
+    _is_negative = "{} is negative"
 
     @staticmethod
     def get_random_string() -> str:
@@ -26,8 +27,8 @@ class StringUtilsSub:
         """
         return uuid.uuid4().hex
 
-    @staticmethod
-    def join(delim: str, *args: str) -> str:
+    @classmethod
+    def join(cls, delim: str, *args: str) -> str:
         """각 요소 사이에 지정된 구분 기호를 사용하여 문자열 배열의 모든 요소를 연결
 
         Args:
@@ -40,12 +41,12 @@ class StringUtilsSub:
             str: _description_
         """
         if not delim or not delim.strip():
-            raise ValueError(StringUtilsSub.is_null_or_empty.format("delim"))
+            raise ValueError(cls._is_null_or_empty.format("delim"))
 
         return delim.join(args)
 
-    @staticmethod
-    def replace_crlf_to_html_tag(s: str) -> str:
+    @classmethod
+    def replace_crlf_to_html_tag(cls, s: str) -> str:
         """캐리지 리턴, 라인피드 문자열을 <br/> 태그로 변환
 
         Args:
@@ -58,13 +59,13 @@ class StringUtilsSub:
             str: _description_
         """
         if not s or not s.strip():
-            raise ValueError(StringUtilsSub.is_null_or_empty.format("s"))
+            raise ValueError(cls._is_null_or_empty.format("s"))
 
         cr = "<br/>"
         return s.replace("\r\n", cr).replace("\r", cr).replace("\n", cr)
 
-    @staticmethod
-    def replace_html_tag_to_crlf(s: str) -> str:
+    @classmethod
+    def replace_html_tag_to_crlf(cls, s: str) -> str:
         """<br/> 태그를 캐리지 리턴, 라인피드로 변환
 
         Args:
@@ -77,12 +78,12 @@ class StringUtilsSub:
             str: _description_
         """
         if not s or not s.strip():
-            raise ValueError(StringUtilsSub.is_null_or_empty.format("s"))
+            raise ValueError(cls._is_null_or_empty.format("s"))
 
         return s.replace("<br>", "\r\n").replace("<br/>", "\r\n")
 
-    @staticmethod
-    def escape_xss(s: str) -> str:
+    @classmethod
+    def escape_xss(cls, s: str) -> str:
         """XSS 공격 대상 HTML 특수문자를 아스키 코드로 변환
 
         Args:
@@ -95,12 +96,12 @@ class StringUtilsSub:
             str: _description_
         """
         if not s or not s.strip():
-            raise ValueError(StringUtilsSub.is_null_or_empty.format("s"))
+            raise ValueError(cls._is_null_or_empty.format("s"))
 
         return html.escape(s)
 
-    @staticmethod
-    def unescape_xss(s: str) -> str:
+    @classmethod
+    def unescape_xss(cls, s: str) -> str:
         """XSS 공격 대상 아스키 코드를 HTML 특수문자로 변환
 
         Args:
@@ -113,12 +114,12 @@ class StringUtilsSub:
             str: _description_
         """
         if not s or not s.strip():
-            raise ValueError(StringUtilsSub.is_null_or_empty.format("s"))
+            raise ValueError(cls._is_null_or_empty.format("s"))
 
         return html.unescape(s)
 
-    @staticmethod
-    def get_star_rating(str_score: str) -> str:
+    @classmethod
+    def get_star_rating(cls, str_score: str) -> str:
         """별점 반환
 
         - 0, 0.5, 1.0, 1.5, 2.0, 2.5, 3.0, 3.5, 4.0, 4.5, 5.0
@@ -134,7 +135,7 @@ class StringUtilsSub:
             str: _description_
         """
         if not str_score or not str_score.strip():
-            raise ValueError(StringUtilsSub.is_null_or_empty.format("str_score"))
+            raise ValueError(cls._is_null_or_empty.format("str_score"))
 
         score = round(float(str_score), 1)
 
@@ -144,8 +145,8 @@ class StringUtilsSub:
         final_score = math.floor(score)
         return "0" if final_score == 0 else str(float(final_score))
 
-    @staticmethod
-    def space(size: int) -> str:
+    @classmethod
+    def space(cls, size: int) -> str:
         """길이만큼 공백 채우기
 
         Args:
@@ -158,6 +159,6 @@ class StringUtilsSub:
             str: _description_
         """
         if size < 0:
-            raise ValueError(StringUtilsSub.is_negative.format("size"))
+            raise ValueError(cls._is_negative.format("size"))
 
         return " " * size

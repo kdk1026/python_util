@@ -10,8 +10,8 @@ class RsaUtil:
     Author: 김대광
     """
 
-    is_null = "{} is null"
-    is_null_or_empty = "{} is null or empty"
+    _is_null = "{} is null"
+    _is_null_or_empty = "{} is null or empty"
 
     class Convert:
         @staticmethod
@@ -28,7 +28,7 @@ class RsaUtil:
                 str: _description_
             """
             if not key_obj:
-                raise ValueError(RsaUtil.is_null_or_empty.format("key"))
+                raise ValueError(RsaUtil._is_null_or_empty.format("key"))
 
             # 공개키/개인키 모두 대응 (PKCS#8 권장)
             der_bytes = key_obj.export_key(format="DER", pkcs=8)
@@ -49,7 +49,7 @@ class RsaUtil:
                 bytes: _description_
             """
             if not base64_key_string or not base64_key_string.strip():
-                raise ValueError(RsaUtil.is_null_or_empty.format("base64_key_string"))
+                raise ValueError(RsaUtil._is_null_or_empty.format("base64_key_string"))
 
             decoded_bytes = base64.b64decode(base64_key_string)
 
@@ -77,8 +77,8 @@ class RsaUtil:
 
         return RSA.generate(key_size)
 
-    @staticmethod
-    def encrypt(public_key_obj: RsaKey, plain_text: str) -> str:
+    @classmethod
+    def encrypt(cls, public_key_obj: RsaKey, plain_text: str) -> str:
         """RSA 암호화
 
         Args:
@@ -93,18 +93,18 @@ class RsaUtil:
             str: _description_
         """
         if not public_key_obj:
-            raise ValueError(RsaUtil.is_null_or_empty.format("public_key_obj"))
+            raise ValueError(cls._is_null_or_empty.format("public_key_obj"))
 
         if not plain_text or not plain_text.strip():
-            raise ValueError(RsaUtil.is_null_or_empty.format("plain_text"))
+            raise ValueError(cls._is_null_or_empty.format("plain_text"))
 
         cipher = PKCS1_OAEP.new(public_key_obj, hashAlgo=SHA256)
         encrypted_bytes = cipher.encrypt(plain_text)
 
         return base64.b64encode(encrypted_bytes).decode("utf-8")
 
-    @staticmethod
-    def decrypt(private_key_obj: RsaKey, cipher_text: str) -> str:
+    @classmethod
+    def decrypt(cls, private_key_obj: RsaKey, cipher_text: str) -> str:
         """RSA 복호화
 
         Args:
@@ -119,10 +119,10 @@ class RsaUtil:
             str: _description_
         """
         if not private_key_obj:
-            raise ValueError(RsaUtil.is_null_or_empty.format("private_key_obj"))
+            raise ValueError(cls._is_null_or_empty.format("private_key_obj"))
 
         if not cipher_text or not cipher_text.strip():
-            raise ValueError(RsaUtil.is_null_or_empty.format("cipher_text"))
+            raise ValueError(cls._is_null_or_empty.format("cipher_text"))
 
         decoded_encrypted_bytes = base64.b64decode(cipher_text)
 

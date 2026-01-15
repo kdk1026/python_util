@@ -3,8 +3,8 @@ class UserAgentUtil:
     Author: 김대광
     """
 
-    is_null = "{} is null"
-    is_null_or_empty = "{} is null or empty"
+    _is_null = "{} is null"
+    _is_null_or_empty = "{} is null or empty"
 
     @classmethod
     def is_check_user_agent(cls, ua_string: str, chk_str: str) -> bool:
@@ -22,9 +22,9 @@ class UserAgentUtil:
             bool: _description_
         """
         if not ua_string or not ua_string.strip():
-            raise ValueError(cls.is_null_or_empty.format("ua_string"))
+            raise ValueError(cls._is_null_or_empty.format("ua_string"))
 
         if not chk_str or not chk_str.strip():
-            raise ValueError(cls.is_null_or_empty.format("chk_str"))
+            raise ValueError(cls._is_null_or_empty.format("chk_str"))
 
         return chk_str in ua_string

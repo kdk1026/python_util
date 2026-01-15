@@ -8,11 +8,11 @@ class ByteStringUtils:
     Author: 김대광
     """
 
-    is_null_or_empty = "{} is null or empty"
-    is_negative = "{} is negative"
+    _is_null_or_empty = "{} is null or empty"
+    _is_negative = "{} is negative"
 
-    @staticmethod
-    def get_str_byte_length(s: str, encoding: str = "utf-8") -> int:
+    @classmethod
+    def get_str_byte_length(cls, s: str, encoding: str = "utf-8") -> int:
         """문자열의 bytes 길이 구하기
 
         Args:
@@ -26,7 +26,7 @@ class ByteStringUtils:
             int: _description_
         """
         if not s or not s.strip():
-            raise ValueError(ByteStringUtils.is_null_or_empty.format("s"))
+            raise ValueError(cls._is_null_or_empty.format("s"))
 
         encoding = (encoding or "utf-8").strip()
 
@@ -41,8 +41,8 @@ class ByteStringUtils:
 
         return byte_len
 
-    @staticmethod
-    def is_byte_over(s: str, max_byte: int, encoding: str = "utf-8") -> bool:
+    @classmethod
+    def is_byte_over(cls, s: str, max_byte: int, encoding: str = "utf-8") -> bool:
         """문자열 바이트 최대 준수 여부
 
         Args:
@@ -57,9 +57,9 @@ class ByteStringUtils:
             bool: _description_
         """
         if not s or not s.strip():
-            raise ValueError(ByteStringUtils.is_null_or_empty.format("s"))
+            raise ValueError(cls._is_null_or_empty.format("s"))
         if max_byte < 0:
-            raise ValueError(ByteStringUtils.is_negative.format("max_byte"))
+            raise ValueError(cls._is_negative.format("max_byte"))
 
         encoding = (encoding or "utf-8").strip()
 
@@ -75,8 +75,8 @@ class ByteStringUtils:
 
         return ret_flag
 
-    @staticmethod
-    def euc_kr_to_utf_8_string(b_org_data: bytes) -> str:
+    @classmethod
+    def euc_kr_to_utf_8_string(cls, b_org_data: bytes) -> str:
         """euc-kr 바이트 객체를 utf-8 문자열로 변환
 
         Args:
@@ -89,7 +89,7 @@ class ByteStringUtils:
             str: _description_
         """
         if not b_org_data:
-            raise ValueError(ByteStringUtils.is_null_or_empty.format("b_org_data"))
+            raise ValueError(cls._is_null_or_empty.format("b_org_data"))
 
         try:
             return b_org_data.decode("euc-kr")
@@ -97,8 +97,8 @@ class ByteStringUtils:
             print(f"Decoding error: {e}")
             return ""
 
-    @staticmethod
-    def utf_8_to_euc_kr_string(b_org_data: bytes) -> str:
+    @classmethod
+    def utf_8_to_euc_kr_string(cls, b_org_data: bytes) -> str:
         """utf-8 바이트 객체를 euc-kr 문자열로 변환
 
         Args:
@@ -111,7 +111,7 @@ class ByteStringUtils:
             str: _description_
         """
         if not b_org_data:
-            raise ValueError(ByteStringUtils.is_null_or_empty.format("b_org_data"))
+            raise ValueError(cls._is_null_or_empty.format("b_org_data"))
 
         try:
             return b_org_data.decode("utf-8")
@@ -119,8 +119,8 @@ class ByteStringUtils:
             print(f"Decoding error: {e}")
             return ""
 
-    @staticmethod
-    def euc_kr_to_utf_8(b_org_data: bytes) -> bytes:
+    @classmethod
+    def euc_kr_to_utf_8(cls, b_org_data: bytes) -> bytes:
         """euc-kr 바이트 객체를 utf-8 바이트 객채로 변환
 
         Args:
@@ -133,7 +133,7 @@ class ByteStringUtils:
             bytes: _description_
         """
         if not b_org_data:
-            raise ValueError(ByteStringUtils.is_null_or_empty.format("b_org_data"))
+            raise ValueError(cls._is_null_or_empty.format("b_org_data"))
 
         try:
             return b_org_data.decode("euc-kr").encode("utf-8")
@@ -141,8 +141,8 @@ class ByteStringUtils:
             print(f"Decoding error: {e}")
             return ""
 
-    @staticmethod
-    def utf_8_to_euc_kr(b_org_data: bytes) -> bytes:
+    @classmethod
+    def utf_8_to_euc_kr(cls, b_org_data: bytes) -> bytes:
         """utf-8 바이트 객체를 euc-kr 바이트 객체로 변환
 
         Args:
@@ -155,7 +155,7 @@ class ByteStringUtils:
             bytes: _description_
         """
         if not b_org_data:
-            raise ValueError(ByteStringUtils.is_null_or_empty.format("b_org_data"))
+            raise ValueError(cls._is_null_or_empty.format("b_org_data"))
 
         try:
             return b_org_data.decode("utf-8").encode("euc-kr")
@@ -163,8 +163,10 @@ class ByteStringUtils:
             print(f"Decoding error: {e}")
             return ""
 
-    @staticmethod
-    def substr_string(s: str, offset: int, length: int, encoding: str = "utf-8") -> str:
+    @classmethod
+    def substr_string(
+        cls, s: str, offset: int, length: int, encoding: str = "utf-8"
+    ) -> str:
         """byte 단위로 문자열 자르기
 
         정교한 라이브러리(예: struct) 사용 권장
@@ -184,11 +186,11 @@ class ByteStringUtils:
             str: _description_
         """
         if not s or not s.strip():
-            raise ValueError(ByteStringUtils.is_null_or_empty.format("s"))
+            raise ValueError(cls._is_null_or_empty.format("s"))
         if offset < 0:
-            raise ValueError(ByteStringUtils.is_negative.format("offset"))
+            raise ValueError(cls._is_negative.format("offset"))
         if length < 0:
-            raise ValueError(ByteStringUtils.is_negative.format("length"))
+            raise ValueError(cls._is_negative.format("length"))
 
         encoding = (encoding or "utf-8").strip()
 

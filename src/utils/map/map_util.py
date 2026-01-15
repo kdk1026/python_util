@@ -3,8 +3,8 @@ class MapUtil:
     Author: 김대광
     """
 
-    is_null = "{} is null"
-    is_null_or_empty = "{} is null or empty"
+    _is_null = "{} is null"
+    _is_null_or_empty = "{} is null or empty"
 
     @classmethod
     def object_to_map(cls, obj: object) -> dict:
@@ -20,7 +20,7 @@ class MapUtil:
             dict: _description_
         """
         if not obj:
-            raise ValueError(cls.is_null("obj"))
+            raise ValueError(cls._is_null("obj"))
 
         return obj.__dict__
 
@@ -40,10 +40,10 @@ class MapUtil:
             bool: _description_
         """
         if not map:
-            raise ValueError(cls.is_null("map"))
+            raise ValueError(cls._is_null("map"))
 
         if not key or not key.strip():
-            raise ValueError(cls.is_null_or_empty.format("key"))
+            raise ValueError(cls._is_null_or_empty.format("key"))
 
         if not map.get(key):
             return True
@@ -63,10 +63,10 @@ class MapUtil:
             ValueError: _description_
         """
         if not map:
-            raise ValueError(cls.is_null("map"))
+            raise ValueError(cls._is_null("map"))
 
         if not keys:
-            raise ValueError(cls.is_null_or_empty.format("keys"))
+            raise ValueError(cls._is_null_or_empty.format("keys"))
 
         for key in keys:
             map.setdefault(key, "")
@@ -85,7 +85,7 @@ class MapUtil:
             dict: _description_
         """
         if not map:
-            raise ValueError(cls.is_null("map"))
+            raise ValueError(cls._is_null("map"))
 
         for key, value in map.items():
             if value is None:
@@ -107,6 +107,6 @@ class MapUtil:
             dict: _description_
         """
         if not map:
-            raise ValueError(cls.is_null("map"))
+            raise ValueError(cls._is_null("map"))
 
         return {k: ("" if v == " " else v) for k, v in map.items()}

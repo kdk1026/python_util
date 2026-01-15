@@ -17,8 +17,8 @@ class RequestsUtil:
     Author: 김대광
     """
 
-    is_null = "{} is null"
-    is_null_or_empty = "{} is null or empty"
+    _is_null = "{} is null"
+    _is_null_or_empty = "{} is null or empty"
 
     @classmethod
     def get(cls, is_ssl: bool, url: str = "", header_map: dict = None) -> dict | None:
@@ -36,7 +36,7 @@ class RequestsUtil:
             dict | None: _description_
         """
         if not url or not url.strip():
-            raise ValueError(cls.is_null_or_empty.format("url"))
+            raise ValueError(cls._is_null_or_empty.format("url"))
 
         if is_ssl:
             import urllib3
@@ -89,7 +89,7 @@ class RequestsUtil:
             dict | None: _description_
         """
         if not url or not url.strip():
-            raise ValueError(cls.is_null_or_empty.format("url"))
+            raise ValueError(cls._is_null_or_empty.format("url"))
 
         type_mapping = {1: "json", 2: "data", 3: "files"}
         param_name = type_mapping.get(is_type)

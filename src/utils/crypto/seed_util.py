@@ -12,8 +12,8 @@ class SeedUtil:
     Author: 김대광
     """
 
-    is_null = "{} is null"
-    is_null_or_empty = "{} is null or empty"
+    _is_null = "{} is null"
+    _is_null_or_empty = "{} is null or empty"
 
     class Algorithm:
         # 표준이며 보안성이 우수함 (권장)
@@ -31,8 +31,8 @@ class SeedUtil:
         """
         return os.urandom(16)
 
-    @staticmethod
-    def convert_key_to_string(key: bytes) -> str:
+    @classmethod
+    def convert_key_to_string(cls, key: bytes) -> str:
         """키를 Base64 문자열로 변환
 
         Args:
@@ -45,12 +45,12 @@ class SeedUtil:
             str: _description_
         """
         if not key:
-            raise ValueError(SeedUtil.is_null_or_empty.format("key"))
+            raise ValueError(cls._is_null_or_empty.format("key"))
 
         return base64.b64encode(key).decode("utf-8")
 
-    @staticmethod
-    def convert_string_to_key(base64_key_string: str) -> bytes:
+    @classmethod
+    def _convert_string_to_key(cls, base64_key_string: str) -> bytes:
         """Base64 문자열을 키로 변환
 
         Args:
@@ -63,13 +63,13 @@ class SeedUtil:
             bytes: _description_
         """
         if not base64_key_string or not base64_key_string.strip():
-            raise ValueError(SeedUtil.is_null_or_empty.format("base64_key_string"))
+            raise ValueError(cls._is_null_or_empty.format("base64_key_string"))
 
         return base64.b64decode(base64_key_string)
 
-    @staticmethod
+    @classmethod
     def encrypt(
-        algorithm: str, base64_key_string: str, plain_text: str
+        cls, algorithm: str, base64_key_string: str, plain_text: str
     ) -> EncryptResult:
         """SEED 암호화
 
@@ -87,15 +87,15 @@ class SeedUtil:
             EncryptResult: _description_
         """
         if not algorithm or not algorithm.strip():
-            raise ValueError(SeedUtil.is_null_or_empty.format("algorithm"))
+            raise ValueError(cls._is_null_or_empty.format("algorithm"))
 
         if not base64_key_string or not base64_key_string.strip():
-            raise ValueError(SeedUtil.is_null_or_empty.format("base64_key_string"))
+            raise ValueError(cls._is_null_or_empty.format("base64_key_string"))
 
         if not plain_text or not plain_text.strip():
-            raise ValueError(SeedUtil.is_null_or_empty.format("plain_text"))
+            raise ValueError(cls._is_null_or_empty.format("plain_text"))
 
-        key = SeedUtil.convert_string_to_key(base64_key_string)
+        key = cls._convert_string_to_key(base64_key_string)
 
         if "CBC" in algorithm:
             iv = os.urandom(16)
@@ -123,8 +123,9 @@ class SeedUtil:
         encrypt_result = EncryptResult(cipher_text, generated_iv_string, tag)
         return encrypt_result
 
-    @staticmethod
+    @classmethod
     def decrypt(
+        cls,
         algorithm: str,
         base64_key_string: str,
         base64_iv_string: str,
@@ -150,18 +151,18 @@ class SeedUtil:
             str: _description_
         """
         if not algorithm or not algorithm.strip():
-            raise ValueError(SeedUtil.is_null_or_empty.format("algorithm"))
+            raise ValueError(cls._is_null_or_empty.format("algorithm"))
 
         if not base64_key_string or not base64_key_string.strip():
-            raise ValueError(SeedUtil.is_null_or_empty.format("base64_key_string"))
+            raise ValueError(cls._is_null_or_empty.format("base64_key_string"))
 
         if not base64_iv_string or not base64_iv_string.strip():
-            raise ValueError(SeedUtil.is_null_or_empty.format("base64_iv_string"))
+            raise ValueError(cls._is_null_or_empty.format("base64_iv_string"))
 
         if not cipher_text or not cipher_text.strip():
-            raise ValueError(SeedUtil.is_null_or_empty.format("cipher_text"))
+            raise ValueError(cls._is_null_or_empty.format("cipher_text"))
 
-        key = SeedUtil.convert_string_to_key(base64_key_string)
+        key = cls._convert_string_to_key(base64_key_string)
         iv = base64.b64decode(base64_iv_string)
 
         if "CBC" in algorithm:
@@ -186,8 +187,9 @@ class SeedUtil:
             except (InvalidTag, ValueError):
                 return "결과: 인증 실패(키가 틀리거나 데이터가 변조됨)"
 
-    @staticmethod
+    @classmethod
     def encrypt_result_seed_gcm_java_style(
+        cls,
         encrypt_result: EncryptResult,
     ) -> EncryptResult:
         """SEED GCM 암호화 후, 자바 스타일로 변환
@@ -204,23 +206,22 @@ class SeedUtil:
             EncryptResult: _description_
         """
         if not encrypt_result.cipher_text or not encrypt_result.cipher_text.strip():
-            raise ValueError(
-                SeedUtil.is_null_or_empty.format("encrypt_result.cipher_text")
-            )
+            raise ValueError(cls._is_null_or_empty.format("encrypt_result.cipher_text"))
 
         if not encrypt_result.iv or not encrypt_result.iv.strip():
-            raise ValueError(SeedUtil.is_null_or_empty.format("encrypt_result.iv"))
+            raise ValueError(cls._is_null_or_empty.format("encrypt_result.iv"))
 
         if not encrypt_result.tag:
-            raise ValueError(SeedUtil.is_null.format("encrypt_result.tag"))
+            raise ValueError(cls._is_null.format("encrypt_result.tag"))
 
         combined_data = encrypt_result.cipher_text + encrypt_result.tag
         encoded_result = base64.b64encode(combined_data).decode("utf-8")
 
         return EncryptResult(encoded_result, encrypt_result.iv, None)
 
-    @staticmethod
+    @classmethod
     def decrypt_seed_gcm_java_style(
+        cls,
         base64_key_string: str,
         base64_iv_string: str,
         encoded_combined: str,
@@ -241,15 +242,15 @@ class SeedUtil:
             str: _description_
         """
         if not base64_key_string or not base64_key_string.strip():
-            raise ValueError(SeedUtil.is_null_or_empty.format("base64_key_string"))
+            raise ValueError(cls._is_null_or_empty.format("base64_key_string"))
 
         if not base64_iv_string or not base64_iv_string.strip():
-            raise ValueError(SeedUtil.is_null_or_empty.format("base64_iv_string"))
+            raise ValueError(cls._is_null_or_empty.format("base64_iv_string"))
 
         if not encoded_combined or not encoded_combined.strip():
-            raise ValueError(SeedUtil.is_null_or_empty.format("encoded_combined"))
+            raise ValueError(cls._is_null_or_empty.format("encoded_combined"))
 
-        key = SeedUtil.convert_string_to_key(base64_key_string)
+        key = cls._convert_string_to_key(base64_key_string)
         iv = base64.b64decode(base64_iv_string)
 
         combined_data = base64.b64decode(encoded_combined)

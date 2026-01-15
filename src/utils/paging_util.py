@@ -8,7 +8,7 @@ class PagingUtil:
     """
 
     _is_null_or_empty = "{} is null or empty"
-    __is_negative = "{} is negative"
+    _is_negative = "{} is negative"
 
     def __init__(
         self,
@@ -19,13 +19,13 @@ class PagingUtil:
         link_url: str | None = None,
     ):
         if page_per_row <= 0:
-            raise ValueError(self.__is_negative.format("page_per_row"))
+            raise ValueError(self._is_negative.format("page_per_row"))
 
         if page_per_screen <= 0:
-            raise ValueError(self.__is_negative.format("page_per_screen"))
+            raise ValueError(self._is_negative.format("page_per_screen"))
 
         if total_cnt <= 0:
-            raise ValueError(self.__is_negative.format("total_cnt"))
+            raise ValueError(self._is_negative.format("total_cnt"))
 
         if not current_page_str or not current_page_str.strip():
             raise ValueError(self._is_null_or_empty.format("current_page_str"))
