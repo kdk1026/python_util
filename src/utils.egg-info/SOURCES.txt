@@ -36,6 +36,7 @@ src/utils/date/date_util.py
 src/utils/date/holiday_util.py
 src/utils/excel/__init__.py
 src/utils/excel/openpyxl_util.py
+src/utils/excel/xltpl_util.py
 src/utils/file/__init__.py
 src/utils/file/file_type_util.py
 src/utils/file/file_util.py

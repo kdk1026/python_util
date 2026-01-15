@@ -23,7 +23,8 @@
     "unpad",
     "unpadder",
     "urandom",
-    "venv"
+    "venv",
+    "Xltpl"
   ],
   "editor.defaultFormatter": "ms-python.black-formatter",
   "editor.formatOnSave": true,
