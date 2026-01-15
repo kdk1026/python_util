@@ -8,7 +8,10 @@ cryptography==46.0.3
 device_detector==6.0.0
 et_xmlfile==2.0.0
 idna==3.11
+Jinja2==3.1.6
 librt==0.7.7
+lxml==6.0.2
+MarkupSafe==3.0.3
 mypy==1.19.1
 mypy_extensions==1.1.0
 openpyxl==3.1.5
@@ -24,4 +27,7 @@ requests==2.32.5
 six==1.17.0
 typing_extensions==4.15.0
 urllib3==2.6.3
--e git+https://github.com/kdk1026/python_util.git@fe29c66d414626e7ff16c3a58c3f1e80f1a66438#egg=utils
+-e git+https://github.com/kdk1026/python_util.git@88f303017f9fd3eae57e460c6756d77b27c1c97f#egg=utils
+xlrd==2.0.2
+xltpl==0.21
+xlwt==1.3.0
