@@ -128,7 +128,7 @@ class OpenpyxlUtil:
         dest_file_path: str,
         file_name: str,
         contents_list: list,
-        template_row_range: tuple = (1, 1),
+        template_row_range: tuple = (2, 1),
     ):
         """템플릿 파일 이용해서 엑셀 파일 생성
 
