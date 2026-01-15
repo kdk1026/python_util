@@ -3,6 +3,10 @@ import re
 
 
 class PagingUtil:
+    """
+    Author: 김대광
+    """
+
     __is_null_or_empty = "{} is null or empty"
     __is_negative = "{} is negative"
 

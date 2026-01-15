@@ -9,6 +9,10 @@ logger = logging.getLogger(__name__)
 
 
 class ValidUtil:
+    """
+    Author: 김대광
+    """
+
     is_null_or_empty = "{} is null or empty"
 
     @staticmethod

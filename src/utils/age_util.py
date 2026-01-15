@@ -5,6 +5,8 @@ from dateutil.relativedelta import relativedelta
 class AgeUtil:
     """
     만나이, 한국식 나이, 보험 나이 등을 계산하는 기능 제공
+
+    Author: 김대광
     """
 
     is_null_or_empty = "{} is null or empty"

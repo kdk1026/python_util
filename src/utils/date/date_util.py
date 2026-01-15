@@ -7,6 +7,8 @@ from babel.dates import format_date
 class DateUtil:
     """
     (포맷) %Y-%m-%d %H:%M:%S = yyyy-MM-dd HH:mm:ss
+
+    Author: 김대광
     """
 
     class Today:

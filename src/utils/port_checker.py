@@ -6,6 +6,10 @@ logger = logging.getLogger(__name__)
 
 
 class PortChecker:
+    """
+    Author: 김대광
+    """
+
     __is_null_or_empty = "{} is null or empty"
 
     @classmethod

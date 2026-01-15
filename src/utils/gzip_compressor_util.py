@@ -3,6 +3,10 @@ import gzip
 
 
 class GzipCompressorUtil:
+    """
+    Author: 김대광
+    """
+
     __is_null_or_empty = "{} is null or empty"
 
     @classmethod

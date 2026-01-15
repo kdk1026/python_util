@@ -2,6 +2,10 @@ import re
 
 
 class FormattingUtil:
+    """
+    Author: 김대광
+    """
+
     __is_null_or_empty = "{} is null or empty"
 
     __FORMAT_HYPHEN = r"\1-\2-\3"

@@ -7,6 +7,8 @@ class DeviceDetectorUtil:
     User Agent 문자열의 형식은 언제든지 바뀔 수 있으므로 라이브러리를 이용하면
 
     라이브러리 제작사에게 맡기고 최신 버전으로 업데이트만 처리
+
+    Author: 김대광
     """
 
     is_null = "{} is null"

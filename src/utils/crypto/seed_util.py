@@ -8,6 +8,10 @@ from utils.crypto.encrypt_result import EncryptResult
 
 
 class SeedUtil:
+    """
+    Author: 김대광
+    """
+
     is_null = "{} is null"
     is_null_or_empty = "{} is null or empty"
 

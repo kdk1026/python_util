@@ -7,6 +7,10 @@ logger = logging.getLogger(__name__)
 
 
 class StringUtilsSub:
+    """
+    Author: 김대광
+    """
+
     is_null_or_empty = "{} is null or empty"
     is_negative = "{} is negative"
 

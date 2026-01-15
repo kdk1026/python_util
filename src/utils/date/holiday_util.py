@@ -10,6 +10,8 @@ class HolidayUtil:
     """
     www.data.go.kr
     : 한국천문연구원_특일 정보
+
+    Author: 김대광
     """
 
     __is_null_or_empty = "{} is null or empty"

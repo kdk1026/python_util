@@ -5,6 +5,10 @@ logger = logging.getLogger(__name__)
 
 
 class IniUtil:
+    """
+    Author: 김대광
+    """
+
     is_null_or_empty = "{} is null or empty"
     is_not_read_file = "파일을 찾을 수 없거나 읽지 못했습니다."
 

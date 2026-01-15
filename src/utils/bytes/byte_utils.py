@@ -5,6 +5,10 @@ logger = logging.getLogger(__name__)
 
 
 class ByteUtils:
+    """
+    Author: 김대광
+    """
+
     @staticmethod
     def get_byte_length(obj: Any, encoding: str = "utf-8") -> int:
         """객체의 bytes 길이 구하기

@@ -2,6 +2,10 @@ import hashlib
 
 
 class HashingUtil:
+    """
+    Author: 김대광
+    """
+
     ORIGINAL_TEXT_IS_NULL = (
         "원본 텍스트가 비어 있거나 null입니다. 해싱을 수행할 수 없습니다."
     )

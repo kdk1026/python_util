@@ -1,4 +1,8 @@
 class ExceptionMessage:
+    """
+    Author: 김대광
+    """
+
     @staticmethod
     def is_null(param_name: str) -> str:
         return "{} is null".format(param_name)

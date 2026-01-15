@@ -10,6 +10,8 @@ class TripleDesUtil:
     """
     주로 레거시 시스템과의 호환성을 위해 사용
     - NIST(미국 표준기술연구소)에서는 2023년 이후 사용을 금지하도록 권고
+
+    Author: 김대광
     """
 
     is_null = "{} is null"

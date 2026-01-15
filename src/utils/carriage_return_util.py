@@ -1,4 +1,8 @@
 class CarriageReturnUtil:
+    """
+    Author: 김대광
+    """
+
     __BR_TAG = "<br />"
 
     @classmethod
