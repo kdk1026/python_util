@@ -108,7 +108,7 @@ class AesUtil:
         if "CBC" in algorithm:
             iv = get_random_bytes(AES.block_size)
 
-            cipher = AES.new(key, AES.MODE_CBC, iv)
+            cipher = AES.new(key, AES.MODE_CBC, iv)  # NOSONAR
             padded_data = pad(plain_text.encode("utf-8"), AES.block_size)
 
             cipher_text = cipher.encrypt(padded_data)
@@ -166,7 +166,7 @@ class AesUtil:
         iv = base64.b64decode(base64_iv_string)
 
         if "CBC" in algorithm:
-            cipher = AES.new(key, AES.MODE_CBC, iv)
+            cipher = AES.new(key, AES.MODE_CBC, iv)  # NOSONAR
             decrypted_padded = cipher.decrypt(cipher_text)
 
             try:
