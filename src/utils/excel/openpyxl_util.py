@@ -127,8 +127,9 @@ class OpenpyxlUtil:
         template_file_path: str,
         dest_file_path: str,
         file_name: str,
-        contents_list: list,
-        template_row_range: tuple = (2, 1),
+        contents_dict: dict,
+        list_key: str,
+        list_start_row: int = 3,
     ):
         """템플릿 파일 이용해서 엑셀 파일 생성
 
@@ -136,8 +137,9 @@ class OpenpyxlUtil:
             template_file_path (str): _description_
             dest_file_path (str): _description_
             file_name (str): _description_
-            contents_list (list): _description_
-            template_row_range (tuple, optional): _description_. Defaults to (1, 1).
+            contents_dict (dict): _description_
+            list_key (str): _description_
+            list_start_row (int, optional): _description_. Defaults to 3.
 
         Raises:
             ValueError: _description_
@@ -160,22 +162,24 @@ class OpenpyxlUtil:
         if not file_name or not file_name.strip():
             raise ValueError(cls._is_null_or_empty("file_name"))
 
-        if not contents_list:
-            raise ValueError(cls._is_null_or_empty("contents_list"))
+        if not contents_dict:
+            raise ValueError(cls._is_null_or_empty("contents_dict"))
+
+        if not list_key or not list_key.strip():
+            raise ValueError(cls._is_null_or_empty("list_key"))
 
         try:
             wb = openpyxl.load_workbook(template_file_path)
             ws = wb.active
 
-            # 템플릿 정보 추출 및 캐싱
-            start_row, end_row = template_row_range
-            template_rows_cache = cls._extract_template_cache(ws, start_row, end_row)
+            # 일반 정보 치환
+            cls._replace_global_placeholders(ws, contents_dict)
 
-            # 데이터 쓰기 실행
-            cls._render_contents_to_sheet(
-                ws, contents_list, template_rows_cache, start_row
-            )
+            # 리스트 정보 처리
+            if list_key in contents_dict and isinstance(contents_dict[list_key], list):
+                cls._render_list_data(ws, contents_dict[list_key], list_start_row)
 
+            # 저장 로직
             os.makedirs(dest_file_path, exist_ok=True)
             save_path = os.path.join(dest_file_path, file_name)
             wb.save(save_path)
@@ -184,66 +188,63 @@ class OpenpyxlUtil:
             logger.error(f"Error occurred: {e}")
             return False
 
-    @staticmethod
-    def _extract_template_cache(ws, start_row: int, end_row: int) -> list:
-        """템플릿 영역의 서식과 값을 캐시로 추출"""
-        cache = []
-        for r in range(start_row, end_row + 1):
-            row_cells = []
-            for c in range(1, ws.max_column + 1):
-                cell = ws.cell(row=r, column=c)
-                row_cells.append(
-                    {
-                        "value": cell.value,
-                        "font": copy.copy(cell.font),
-                        "border": copy.copy(cell.border),
-                        "fill": copy.copy(cell.fill),
-                        "number_format": cell.number_format,
-                        "alignment": copy.copy(cell.alignment),
-                        "protection": copy.copy(cell.protection),
-                    }
-                )
-            cache.append(row_cells)
-        return cache
+    @classmethod
+    def _replace_global_placeholders(cls, ws, data):
+        """시트 전체에서 리스트가 아닌 일반 단일 값들을 치환"""
+        for row in ws.iter_rows():
+            for cell in row:
+                if isinstance(cell.value, str) and "{{" in cell.value:
+                    cell.value = cls._simple_replace(cell.value, data)
 
     @classmethod
-    def _render_contents_to_sheet(
-        cls, ws, contents_list, template_rows_cache, start_row
-    ):
-        """캐시된 템플릿을 바탕으로 데이터를 시트에 기록"""
-        template_height = len(template_rows_cache)
+    def _render_list_data(cls, ws, item_list, start_row):
+        """리스트 데이터를 행 삽입 방식으로 렌더링"""
+        if not item_list:
+            return
 
-        for index, data in enumerate(contents_list):
-            current_start_row = start_row + (index * template_height)
+        # 템플릿 행(서식 및 플레이스홀더) 캐싱
+        template_cells = []
 
-            for r_idx, row_content in enumerate(template_rows_cache):
-                target_row = current_start_row + r_idx
+        for c in range(1, ws.max_column + 1):
+            cell = ws.cell(row=start_row, column=c)
+            template_cells.append(
+                {
+                    "value": cell.value,
+                    "font": copy.copy(cell.font),
+                    "border": copy.copy(cell.border),
+                    "fill": copy.copy(cell.fill),
+                    "alignment": copy.copy(cell.alignment),
+                    "number_format": cell.number_format,
+                }
+            )
 
-                for c_idx, cell_info in enumerate(row_content, 1):
-                    target_cell = ws.cell(row=target_row, column=c_idx)
+        # 데이터 개수만큼 행 삽입 (기존 데이터 밀어내기)
+        # - 첫 번째 행은 이미 존재하므로 len-1 만큼 삽입
+        if len(item_list) > 1:
+            ws.insert_rows(start_row + 1, amount=len(item_list) - 1)
 
-                    # 서식 복사
-                    cls._apply_cell_style(target_cell, cell_info)
+        # 데이터 기록
+        for i, item_data in enumerate(item_list):
+            current_row = start_row + i
+            for c_idx, t_cell in enumerate(template_cells, 1):
+                target_cell = ws.cell(row=current_row, column=c_idx)
 
-                    # 플레이스홀더 치환 및 값 입력
-                    val = cell_info["value"]
-                    if isinstance(val, str) and "{{" in val:
-                        val = cls._replace_placeholders(val, data)
+                # 스타일 복사
+                target_cell.font = t_cell["font"]
+                target_cell.border = t_cell["border"]
+                target_cell.fill = t_cell["fill"]
+                target_cell.alignment = t_cell["alignment"]
+                target_cell.number_format = t_cell["number_format"]
 
+                # 값 치환
+                val = t_cell["value"]
+                if isinstance(val, str) and "{{" in val:
+                    target_cell.value = cls._simple_replace(val, item_data)
+                else:
                     target_cell.value = val
 
     @staticmethod
-    def _apply_cell_style(target_cell, cell_info):
-        """셀에 서식 적용"""
-        target_cell.font = cell_info["font"]
-        target_cell.border = cell_info["border"]
-        target_cell.fill = cell_info["fill"]
-        target_cell.number_format = cell_info["number_format"]
-        target_cell.alignment = cell_info["alignment"]
-
-    @staticmethod
-    def _replace_placeholders(text: str, data: dict) -> str:
-        """{{key}} 형태의 문구를 데이터로 치환"""
+    def _simple_replace(text, data):
         matches = re.findall(r"\{\{(.*?)\}\}", text)
         for match in matches:
             key = match.strip()
