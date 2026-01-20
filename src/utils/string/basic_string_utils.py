@@ -9,7 +9,7 @@ class BasicStringUtils:
     """
 
     _is_null_or_empty = "{} is null or empty"
-    is_negative = "{} is negative"
+    _is_negative = "{} is negative"
 
     @staticmethod
     def is_blank(s: str) -> bool:
@@ -78,9 +78,9 @@ class BasicStringUtils:
         if cls.is_blank(s):
             raise ValueError(cls._is_null_or_empty.format("s"))
         if size <= 0:
-            raise ValueError(cls.is_negative.format("size"))
+            raise ValueError(cls._is_negative.format("size"))
         if not ch:
-            raise ValueError(cls.is_negative.format("ch"))
+            raise ValueError(cls._is_negative.format("ch"))
 
         # rjust는 size가 lens(s) 보다 작거나 같으면 원래 문자열을 그대로 반환
         return s.rjust(size, ch)
@@ -105,9 +105,9 @@ class BasicStringUtils:
         if cls.is_blank(s):
             raise ValueError(cls._is_null_or_empty.format("s"))
         if size <= 0:
-            raise ValueError(cls.is_negative.format("size"))
+            raise ValueError(cls._is_negative.format("size"))
         if not ch:
-            raise ValueError(cls.is_negative.format("ch"))
+            raise ValueError(cls._is_negative.format("ch"))
 
         # ljust는 size가 lens(s) 보다 작거나 같으면 원래 문자열을 그대로 반환
         return s.ljust(size, ch)
