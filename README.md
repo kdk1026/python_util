@@ -11,7 +11,7 @@ python -m venv venv
 ## 가상환경 활성화
 ```
 (Windows)
-venv/Scripts/activate
+venv\Scripts\activate
 
 (Linux/Mac)
 source venv/bin/activate
