@@ -6,7 +6,7 @@ logger = logging.getLogger(__name__)
 
 class RequestsUtil:
     """
-    is_ssl은 False로 해서 오류 나는 경우에만 True로 사용
+    isVerify 의 경우, true로 해서 오류 나는 경우 false로
 
     response = requests.post(url, json=payload)
         : json 파라미터를 사용하면 자동으로 Content-Type: application/json 설정
@@ -21,11 +21,13 @@ class RequestsUtil:
     _is_null_or_empty = "{} is null or empty"
 
     @classmethod
-    def get(cls, is_ssl: bool, url: str = "", header_map: dict = None) -> dict | None:
+    def get(
+        cls, is_verify: bool, url: str = "", header_map: dict = None
+    ) -> dict | None:
         """HttpClient GET 요청
 
         Args:
-            is_ssl (bool): _description_
+            is_verify (bool): _description_
             url (str, optional): _description_. Defaults to "".
             header_map (dict, optional): _description_. Defaults to None.
 
@@ -38,15 +40,13 @@ class RequestsUtil:
         if not url or not url.strip():
             raise ValueError(cls._is_null_or_empty.format("url"))
 
-        if is_ssl:
+        if not is_verify:
             import urllib3
 
             urllib3.disable_warnings(urllib3.exceptions.InsecureRequestWarning)
 
         try:
-            response = requests.get(
-                url, headers=header_map or {}, verify=True if is_ssl == False else False
-            )
+            response = requests.get(url, headers=header_map or {}, verify=is_verify)
 
             if not response.ok:
                 logger.warning(f"Status Code: {response.status_code}")
@@ -63,7 +63,7 @@ class RequestsUtil:
     @classmethod
     def post(
         cls,
-        is_ssl: bool,
+        is_verify: bool,
         url: str = "",
         header_map: dict = None,
         body_map: dict = None,
@@ -75,7 +75,7 @@ class RequestsUtil:
         - is_type = 3 (file)
 
         Args:
-            is_ssl (bool): _description_
+            is_verify (bool): _description_
             url (str, optional): _description_. Defaults to "".
             header_map (dict, optional): _description_. Defaults to None.
             body_map (dict, optional): _description_. Defaults to None.
@@ -97,7 +97,7 @@ class RequestsUtil:
         if not param_name:
             raise ValueError(f"Invalid is_type: {is_type}. Choose 1, 2, or 3.")
 
-        if is_ssl:
+        if not is_verify:
             import urllib3
 
             urllib3.disable_warnings(urllib3.exceptions.InsecureRequestWarning)
@@ -106,7 +106,7 @@ class RequestsUtil:
             response = requests.post(
                 url,
                 headers=header_map or {},
-                verify=True if is_ssl == False else False,
+                verify=is_verify,
                 **{param_name: body_map or {}},
             )
 
